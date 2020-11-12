@@ -1,0 +1,27 @@
+page,
+view,
+text,
+input,
+swiper,
+navigator {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+page{
+  height: 100%;
+}
+image {
+  display: block;
+  width: 100%;
+}
+/* 自定义主体颜色 */
+page {
+  --themeColor: #349be9;
+  --titleColor:#333;
+  --fontColor:#666;
+}
+/* 字体颜色 */
+

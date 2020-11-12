@@ -1,0 +1,36 @@
+page {
+  background-color: #f3f7fa;
+}
+.pageshow {
+  display: none;
+}
+.collection_wrap {
+  padding: 20rpx;
+}
+.collection_wrap .collection_item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 9rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
+}
+.collection_wrap .collection_item .collection_info {
+  padding: 23rpx 10rpx 23rpx 33rpx;
+  border-radius: 10rpx;
+}
+.collection_wrap .collection_item .collection_info .collection_date {
+  line-height: 30rpx;
+  font-size: 24rpx;
+  color: var(--fontColor);
+}
+.collection_wrap .collection_item .collection_info .collection_title {
+  line-height: 37rpx;
+  margin-top: 17rpx;
+  font-size: 26rpx;
+  color: var(--titleColor);
+}
+.collection_wrap .collection_item .collection_img image {
+  width: 28rpx;
+  height: 30rpx;
+  margin: 0 33rpx 0 20rpx;
+}

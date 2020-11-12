@@ -1,0 +1,80 @@
+@import "../../styles/background/background.less";
+@fontColor: #666;
+// 显示
+.pageshow {
+  display: none;
+}
+.info_wrap {
+  padding: 30rpx 20rpx;
+  .info_content {
+    padding: 39rpx 12rpx;
+    border-radius: 10rpx;
+    background-color: #fff;
+    .info_item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 26rpx 0;
+      border-bottom: 1rpx solid #eee;
+      .info_title {
+        font-size: 30rpx;
+        color: var(--titleColor);
+      }
+      // 头像
+      .info_img {
+        image {
+          width: 80rpx;
+          height: 80rpx;
+          border-radius: 50%;
+        }
+      }
+      // 性别
+      .info_gender {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .info_switch {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          zoom: 0.7;
+        }
+        text {
+          font-size: 26rpx;
+          margin-right: 11rpx;
+          color: @fontColor;
+        }
+      }
+      // 手机号
+      .info_input {
+        width: 60%;
+        text-align: right;
+        color: @fontColor;
+        // width: 100%;
+      }
+      input{
+        width: 60%;
+      }
+      //   .info_phone {
+      //     line-height: 60rpx;
+      //     margin-left: 395rpx;
+      //     font-size: 26rpx;
+      //     font-weight: 400;
+      //     color: @fontColor;
+      //   }
+      // 姓名
+    //   .info_name {
+    //     color: @fontColor;
+    //   }
+      // 邮箱地址
+    //   .info_address {
+    //     color: @fontColor;
+    //   }
+    }
+  }
+  .info_preservation {
+    width: 100%;
+    margin-top: 41rpx;
+    border-radius: 10rpx;
+  }
+}

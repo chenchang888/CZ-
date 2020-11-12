@@ -1,0 +1,101 @@
+<view class="list_wrap">
+    <view class="list_content {{current?'list_content-popup':''}}">
+        <!-- 头部开始 -->
+        <view class="list_header">
+            <!-- 搜索框开始 -->
+            <my-search my-class="search_container" bindInputEvent="handleSearch"></my-search>
+            <!-- 个人 企业选择项 -->
+            <view class="select_item" wx:if="{{selectCategory}}">
+                <view class="select_same {{selsecState===1?'select_active':''}}" bindtap="selectPersonal">个人政策</view>
+                <view class="select_same {{selsecState===2?'select_active':''}}" bindtap="selectEnterprise">企业政策</view>
+            </view>
+            <!-- 选择列表开始 -->
+            <view class="select_container" wx:else>
+                <view class="select_list" bindtap="showPopup" wx:for="{{selectList}}" wx:key="id" data-id="{{item.id}}">
+                    <view class=" {{current===item.id?'fontColor':'select_title'}}">{{item.title}}</view>
+                    <image class="select_img" src="{{current===item.id?'../../icon/up.png':'../../icon/down.png'}}" />
+                </view>
+            </view>
+        </view>
+        <!-- 头部结束 -->
+        <!-- 政策列表开始 -->
+        <view class="policy_list-container">
+            <navigator class="policy_list" url="../details/details" wx:for="{{5}}">
+                <image class="policy_list-img" src="../../images/3.png" />
+                <view class="policy_title-container">
+                    <view class="policy_title">【解读】合肥市2020年重点项目出炉！2083个项目，总投资24000亿元</view>
+                    <view class="policy_other">
+                        <view class="policy_title-introduce">
+                            <view class="policy_from">合肥市</view>
+                            <view class="policy_attribute-one">合肥市</view>
+                            <view class="policy_attribute-two">合肥市</view>
+                        </view>
+                        <view class="policy_title-time">2020-10-30</view>
+                    </view>
+                </view>
+            </navigator>
+            <navigator class="policy_list" url="../details/details" wx:for="{{5}}">
+                <!-- <image class="policy_list-img {{shows?'':'imgShow'}}" src="" /> -->
+                <view class="policy_title-container">
+                    <view class="policy_title">【解读】合肥市2020年重点项目出炉！2083个项目，总投资24000亿元</view>
+                    <view class="policy_other">
+                        <view class="policy_title-introduce">
+                            <view class="policy_from">合肥市</view>
+                        </view>
+                        <view class="policy_title-time">2020-10-30</view>
+                    </view>
+                </view>
+            </navigator>
+        </view>
+        <!-- 政策列表结束 -->
+    </view>
+    <!-- 弹出层开始 -->
+    <scroll-view class="popup_container {{current?'':'popup_display'}} " bindtap="closePopur" scroll-y>
+        <view>
+            <view class="popup_content-wrap {{current===1?'open_popup':'popup_display'}}  " catchtap>
+                <view class="popup_content">
+                    <view class="policy_themes {{activeTheme===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
+                        wx:key="index" bindtap="chooseTheme" data-id="{{item.id}}">
+                        <text class="">{{item.title}}</text>
+                    </view>
+                    <!-- 占位 -->
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
+                </view>
+                <!-- 按钮 -->
+                <view class="popup_content-choose">
+                    <view class="popup_cancel" bindtap="cancelBtn">取消</view>
+                    <view class="popup_true" bindtap="determineBtn">确定</view>
+                </view>
+            </view>
+            <!-- 弹出层2 -->
+            <view class="popup_content-wrap {{current===2?'open_popup':'popup_display'}}  " catchtap>
+                <view class="popup_content">
+                    <view class="policy_themes {{activeGrade===item.id?'active_themes':''}}" wx:for="{{policyGrade}}"
+                        wx:key="index" bindtap="chooseGrade" data-id="{{item.id}}">
+                        <text>{{item.grade}}</text>
+                    </view>
+                </view>
+                <view class="popup_content-choose">
+                    <view class="popup_cancel" bindtap="cancelBtn">取消</view>
+                    <view class="popup_true" bindtap="determineBtn">确定</view>
+                </view>
+            </view>
+            <!-- 弹出层3 -->
+            <view class="popup_content-wrap {{current===3?'open_popup':'popup_display'}}  " catchtap>
+                <view class="popup_content">
+                    <view class="policy_themes {{activeYear===item.id?'active_themes':''}}" wx:for="{{policyYear}}"
+                        wx:key="index" bindtap="chooseYear" data-id="{{item.id}}">
+                        <text>{{item.year}}</text>
+                    </view>
+                </view>
+                <view class="popup_content-choose">
+                    <view class="popup_cancel" bindtap="cancelBtn">取消</view>
+                    <view class="popup_true" bindtap="determineBtn">确定</view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <!-- 弹出层结束 -->
+</view>

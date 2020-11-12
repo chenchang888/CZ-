@@ -1,0 +1,49 @@
+{ 
+  "pages":[
+    "pages/index/index",
+    "pages/project/project",
+    "pages/selectedPolicies/selectedPolicies",
+    "pages/center/center",
+    "pages/collection/collection",
+    "pages/declare/declare",
+    "pages/information/information",
+    "pages/list/list",
+    "pages/details/details",
+    "pages/selectedDetails/selectedDetails",
+    "pages/ProjectDetails/ProjectDetails"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "政务公开",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "borderStyle":"white",
+    "color":"#666",
+    "selectedColor":"#015bb5",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath":"./icon/index.png",
+      "selectedIconPath":"./icon/index_active.png"
+    }, {
+      "pagePath": "pages/project/project",
+      "text": "项目申报",
+      "iconPath":"./icon/apply.png",
+      "selectedIconPath":"./icon/apply_active.png"
+    }, {
+      "pagePath": "pages/selectedPolicies/selectedPolicies",
+      "text": "精选政策",
+      "iconPath":"./icon/recommend.png",
+      "selectedIconPath":"./icon/recommend_active.png"
+    }, {
+      "pagePath": "pages/center/center",
+      "text": "个人中心",
+      "iconPath":"./icon/center.png",
+      "selectedIconPath":"./icon/center_active.png"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,120 @@
+<view class="index_container">
+	<view class="header_container">
+		<!-- 搜索框开始 -->
+		<view class="search_container">
+			<view class="search_icon">
+				<image class="" src="../../icon/search.png" />
+				<input class="search-input" value="{{inputContent}}" placeholder="搜索" bindconfirm="handleSearch" bindinput="inputBlur" confirm-type="search" placeholder-style="color:#969CA7" />
+				<view bindtap="handleSearch">搜索</view>
+			</view>
+		</view>
+		<!-- 搜索框结束 -->
+		<!-- 轮播图开始 -->
+		<view class="swiper_container">
+			<swiper class="swiper_group" autoplay="true" indicator-dots="true" interval="3000" circular="true"
+				indicator-active-color="#015BB5">
+				<navigator class="swiper_group-item" url="../details/details">
+					<swiper-item>
+						<image class="" src="../../images/1.png" lazy-load="false" />
+					</swiper-item>
+				</navigator>
+				<navigator class="swiper_group-item" url="../details/details">
+					<swiper-item>
+						<image class="" src="../../images/3.png" lazy-load="false" />
+					</swiper-item>
+				</navigator>
+			</swiper>
+		</view>
+		<!-- 轮播图结束 -->
+		<!-- 最新公告开始 -->
+		<navigator class="notice_container"  url="../details/details" >
+			<view class="notice_img">
+				<image src="../../icon/new_notice.png" lazy-load="false" />
+			</view>
+			<view class="notice_title">安徽省人民政府办公厅关于印发安徽省全面推进基层政务公开标准化规范化工作实施方案的通知</view>
+		</navigator>
+		<!-- 最新公告结束 -->
+	</view>
+	<!-- 政策导航开始 -->
+	<view class="policy_nav-container">
+		<!-- 惠企政策开始 -->
+		<view class="enterprise_policy">
+			<view class="enterprise_title">
+				<view class="enterprise_policy-name">
+					<view class="enterprise_policy-line"></view>
+					<text>惠企政策</text>
+				</view>
+				<navigator class="enterprise_policy-more" url="../list/list?id=1"  hover-class="none">
+					<text>更多></text>
+				</navigator>
+			</view>
+			<view class="enterprise_list">
+				<navigator class="enterprise_list-nav" url="../list/list?id=1" hover-class="none">
+					<image src="../../images/policy_01.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=1" hover-class="none">
+					<image src="../../images/policy_02.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=1" hover-class="none">
+					<image src="../../images/policy_03.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=1"  hover-class="none">
+					<image src="../../images/policy_04.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=1" hover-class="none">
+					<image src="../../images/policy_05.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=1"  hover-class="none">
+					<image src="../../images/policy_06.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=1"  hover-class="none">
+					<image src="../../images/policy_07.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=1"  hover-class="none">
+					<image src="../../images/policy_08.png" lazy-load="false" />
+				</navigator>
+			</view>
+		</view>
+		<!-- 惠企政策结束 -->
+		<!-- 民生政策开始 -->
+		<view class="enterprise_policy">
+			<view class="enterprise_title">
+				<view class="enterprise_policy-name">
+					<view class="enterprise_policy-line"></view>
+					<text>民生政策</text>
+				</view>
+				<navigator class="enterprise_policy-more" url="../list/list?id=2"  hover-class="none">
+					<text>更多></text>
+				</navigator>
+			</view>
+			<view class="enterprise_list">
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_09.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_10.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_11.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_12.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_13.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_14.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_15.png" lazy-load="false" />
+				</navigator>
+				<navigator class="enterprise_list-nav" url="../list/list?id=2"  hover-class="none">
+					<image src="../../images/policy_16.png" lazy-load="false" />
+				</navigator>
+			</view>
+		</view>
+		<!-- 民生政策结束 -->
+	</view>
+	<!-- 政策导航结束 -->
+</view>

@@ -1,0 +1,21 @@
+.details_header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.details_header .details_title {
+  width: 100%;
+  font-size: 44rpx;
+  font-weight: 500;
+  color: #333;
+}
+.details_header .details_from {
+  display: flex;
+  justify-content: start;
+  line-height: 60rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+.details_header .details_from .details_unit {
+  margin-right: 65rpx;
+}

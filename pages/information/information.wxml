@@ -1,0 +1,33 @@
+<view class="{{pageShow?'info_wrap':'pageshow'}}">
+    <view class="info_content">
+        <view class="info_item">
+            <view class="info_title">头像：</view>
+            <view class="info_img">
+                <image src="{{userInfo.avatarUrl}}" />
+            </view>
+        </view>
+        <view class="info_item">
+            <view class="info_title">性别：</view>
+            <view class="info_gender">
+                <text>{{userInfo.gender?'男':'女'}}</text>
+            </view>
+        </view>
+        <view class="info_item">
+            <view class="info_title">手机号：</view>
+            <view class="info_input" wx:if="{{phoneInput}}" bindtap="getPhoneNumber">{{personInfo.phone}}
+            </view>
+            <input class="" wx:else value="" maxlength='16' type="number" bindblur="losePhoneFocus" focus="true"></input>
+        </view>
+        <view class="info_item">
+            <view class="info_title">真实姓名：</view>
+            <view class="info_input" wx:if="{{nameInput}}" bindtap="getName">{{personInfo.name}}</view>
+            <input class="" wx:else value="" maxlength='8' type="text" bindblur="loseNameFocus" focus="true"></input>
+        </view>
+        <view class="info_item">
+            <view class="info_title">邮箱地址：</view>
+            <view class="info_input" wx:if="{{addressInput}}" bindtap="getAddress">{{personInfo.address}}</view>
+            <input class="" wx:else value="" maxlength='19' type="text" bindblur="loseAddressFocus" focus="true"></input>
+        </view>
+    </view>
+    <button class="info_preservation" type="primary" bindtap="preservation">保存</button>
+</view>

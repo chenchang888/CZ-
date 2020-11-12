@@ -1,0 +1,131 @@
+page {
+  background-color: #f9f9f9;
+}
+.header_container {
+  overflow: hidden;
+  background-color: #fff;
+}
+.header_container .search_container {
+  display: flex;
+  align-items: center;
+  width: 680rpx;
+  height: 70rpx;
+  margin: 30rpx auto;
+  background-color: #f6f7f9;
+  border-radius: 35rpx;
+}
+.header_container .search_container .search_icon {
+  display: flex;
+  align-items: center;
+}
+.header_container .search_container .search_icon image {
+  width: 28rpx;
+  height: 28rpx;
+  margin: 22rpx 21rpx 20rpx 32rpx;
+}
+.header_container .search_container .search_icon .search-input {
+  width: 500rpx;
+  font-size: 26rpx;
+}
+.header_container .swiper_container {
+  height: 320rpx;
+}
+.header_container .swiper_container .swiper_group {
+  width: 710rpx;
+  height: 100%;
+  margin: 0 auto;
+}
+.header_container .swiper_container .swiper_group image {
+  width: 670rpx;
+  height: 100%;
+  margin-left: 20rpx;
+  border-radius: 30rpx;
+}
+.header_container .notice_container {
+  display: flex;
+  align-items: center;
+  width: 670rpx;
+  height: 100rpx;
+  margin: 0 auto;
+  border-radius: 10rpx;
+  background-color: #fff;
+}
+.header_container .notice_container .notice_img {
+  width: 104rpx;
+  height: 27rpx;
+  margin-right: 22rpx;
+}
+.header_container .notice_container .notice_img image {
+  height: 100%;
+}
+.header_container .notice_container .notice_title {
+  width: 522rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 24rpx;
+  color: var(--titleColor);
+}
+.policy_nav-container {
+  height: 100%;
+  margin: 20rpx 0;
+  overflow: hidden;
+  background-color: #fff;
+}
+.policy_nav-container .enterprise_policy {
+  width: 690rpx;
+  height: 100%;
+  margin: 40rpx auto;
+  overflow: hidden;
+  border-radius: 10rpx;
+  box-shadow: 0rpx 3rpx 20rpx 0rpx rgba(140, 163, 192, 0.2);
+}
+.policy_nav-container .enterprise_policy .enterprise_title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 49rpx;
+}
+.policy_nav-container .enterprise_policy .enterprise_title .enterprise_policy-name {
+  display: flex;
+  align-items: center;
+  color: var(--themeColor);
+}
+.policy_nav-container .enterprise_policy .enterprise_title .enterprise_policy-name text {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.policy_nav-container .enterprise_policy .enterprise_title .enterprise_policy-name .enterprise_policy-line {
+  width: 6rpx;
+  height: 30rpx;
+  margin-right: 21rpx;
+  background: var(--themeColor);
+}
+.policy_nav-container .enterprise_policy .enterprise_title .enterprise_policy-more {
+  display: flex;
+  align-items: center;
+  margin-right: 37rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+.policy_nav-container .enterprise_policy .enterprise_list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 11rpx;
+  padding: 25rpx 1rpx;
+}
+.policy_nav-container .enterprise_policy .enterprise_list .enterprise_list-nav {
+  width: 25%;
+  text-align: center;
+}
+.policy_nav-container .enterprise_policy .enterprise_list .enterprise_list-nav image {
+  height: 140rpx;
+  padding: 0 36rpx;
+  margin: 25rpx 0;
+  box-sizing: border-box;
+}
+.policy_nav-container .enterprise_policy .enterprise_list .enterprise_list-nav view {
+  font-size: 24rpx;
+  color: var(--titleColor);
+}

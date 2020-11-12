@@ -1,0 +1,61 @@
+<view class="project_details-wrap">
+    <!-- 头部标题开始 -->
+    <view class="details_header">
+        <view class="details_title">
+            支持科技创新，安徽省科技奖励项目
+        </view>
+        <view class="details_from">
+            <view class="details_unit">滁州市人民政府</view>
+            <view class="details_time">2020-03-09</view>
+        </view>
+    </view>
+    <!-- 头部标题结束 -->
+    <!-- 内容区域开始 -->
+    <view class="details_content">
+        <view class="content_title">基本信息</view>
+        <view>
+            <text class="content_name" user-select>办理部门:</text><text class="content_details" user-select>{{content.department}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-selectt>申报对象:</text><text class="content_details" user-select>{{content.object}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>政策年度:</text><text class="content_details" user-select>{{content.year}}</text>
+        </view>
+        <view>
+            <text class="content_name content_money">金</text><text class="content_name">额:</text><text class="content_details">{{content.money}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>开始时间:</text><text class="content_details" user-select>{{content.starTime}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>截至时间:</text><text class="content_details" user-select>{{content.endTime}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>办理地点:</text><text class="content_details">{{content.place}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>办理时间:</text><text class="content_details" user-select>{{content.handleTime}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>咨询电话:</text><text class="content_details" user-select>{{content.consultPphone}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>监督电话:</text><text class="content_details" user-select>{{content.supervisePphone}}</text>
+        </view>
+    </view>
+    <!-- 内容区域结束 -->
+    <view class="details_footer">
+        <view class="apply_materials">
+            <view class="apply_name">申报材料</view>
+            <view class="apply_title" bindtap="handleApply">{{applyMaterials.title01}}</view>
+            <view class="apply_title" bindtap="handleApply">{{applyMaterials.title02}}</view>
+        </view> 
+        <view class="apply_materials">
+            <view class="apply_name">申请流程</view>
+            <view class="apply_title">{{process}}</view>
+        </view> 
+    </view>
+    <!-- 底部按钮 -->
+    <button class="apply_btn">立即申报</button>
+</view>

@@ -1,0 +1,72 @@
+.center_wrap {
+  height: 100%;
+  overflow: hidden;
+  padding: 30rpx 20rpx;
+  background-color: #F3F3F9;
+  .center_header {
+    width: 710rpx;
+    height: 300rpx;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 100rpx;
+    border-radius: 10rpx;
+    background-color: #fff;
+    .personal_picture {
+      width: 100%;
+      margin-top: 40rpx;
+      image {
+        width: 170rpx;
+        height: 170rpx;
+        border-radius: 50%;
+        margin: auto;
+      }
+      .personal_sign {
+        margin-top: 9rpx;
+        border: none;
+        font-size: 30rpx;
+        font-weight: bold;
+        letter-spacing: 20.77rpx;
+        text-indent: 20.77rpx;
+        
+        color: var(--themeColor);
+      }
+    }
+  }
+  .person_info{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100rpx;
+      margin-bottom: 20rpx;
+      padding: 0 30rpx;
+      border-radius: 10rpx;
+      background-color: #fff;
+      .info_title{
+          display: flex;
+          align-items: center;
+          .info_icon{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 60rpx;
+              height: 60rpx;
+              border-radius: 50%;
+              background-color: var(--themeColor);
+              image{
+                  width: 30rpx;
+                  height: 30rpx;
+              }
+          }
+          .info_title{
+              margin-left: 20rpx;
+              font-size: 30rpx;
+              font-family: Microsoft YaHei;
+              color: var(--titleColor);
+          }
+      }
+      .info_arrow{
+          width: 34rpx;
+          height: 34rpx;
+      }
+  }
+}

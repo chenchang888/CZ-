@@ -1,0 +1,9 @@
+<!-- 搜索框 -->
+<view class="search_container">
+    <view class="search_input-container">
+        <image class="search_img" src="../../icon/search02.png" />
+        <input class="search_input" value="{{inputContent}}" placeholder="请输入关键词查找" bindinput="inputBlur">
+        </input>
+    </view>
+    <view class="search_font" bindtap="searchBtn">搜索</view>
+</view>

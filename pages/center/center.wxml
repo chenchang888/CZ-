@@ -1,0 +1,44 @@
+<view class="center_wrap">
+    <!-- 头像区域开始 -->
+    <view class="center_header">
+        <view class="personal_picture">
+            <image src="{{show?userInfo.avatarUrl:'../../icon/head_portrait.png'}}"></image>
+            <button class="personal_sign" plain size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo" >{{show?userInfo.nickName:'登录'}}</button>
+        </view>
+    </view>
+    <!-- 头像区域结束 -->
+    <!-- 个人资料 -->
+    <navigator class="person_info" url="../information/information">
+        <view class="info_title">
+            <view class="info_icon">
+                <image class="" src="../../icon/personal_info.png" />
+            </view>
+            <view class="info_title">个人资料</view>
+        </view>
+        <image class="info_arrow" src="../../icon/arror.png" ></image>
+    </navigator>
+    <!-- 我的收藏 -->
+    <navigator class="person_info" url="../collection/collection">
+        <view class="info_title">
+            <view class="info_icon">
+                <image class="" src="../../icon/collection.png" />
+            </view>
+            <view class="info_title">我的收藏</view>
+        </view>
+        <image class="info_arrow" src="../../icon/arror.png" >
+
+        </image>
+    </navigator>
+    <!-- 我的订阅 -->
+    <navigator class="person_info" url="../declare/declare">
+        <view class="info_title">
+            <view class="info_icon">
+                <image class="" src="../../icon/subscribe.png" />
+            </view>
+            <view class="info_title">我的订阅</view>
+        </view>
+        <image class="info_arrow" src="../../icon/arror.png" >
+
+        </image>
+    </navigator>
+</view>

@@ -1,0 +1,11 @@
+<view class="{{pageShow?'collection_wrap':'pageshow'}}">
+    <view class="collection_item" wx:for="{{10}}">
+        <navigator class="collection_info">
+            <view class="collection_date">2020-11-01</view>
+            <view class="collection_title">滁州市人民政府办公室关于印发滁州市扎实推进应急广播体系建设实施方案的通知</view>
+        </navigator>
+        <view class="collection_img" bindtap="deleteCollection" >
+            <image src="../../icon/delete.png" /> 
+        </view>
+    </view>
+</view>

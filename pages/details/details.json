@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "滁州市人民政府",
+  "usingComponents": {
+    "details-header":"../../components/details-header/details-header"
+  }
+
+}
