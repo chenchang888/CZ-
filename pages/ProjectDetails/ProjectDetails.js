@@ -29,7 +29,7 @@ Page({
   // 申报材料
   handleApply() {
     wx.navigateTo({
-      url: '/pages/webView/webView',
+      url: '/pages/webView/webView'
     })
   },
   /**

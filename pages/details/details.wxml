@@ -90,7 +90,7 @@
     </view>
     <!-- 点赞分享结束 -->
     <!-- 立即申报按钮开始 -->
-    <button class="apply_btn {{showBtn?'':'show'}}" bindTap="handleApply">立即申请</button>
+    <button class="apply_btn {{showBtn?'':'show'}}" bindtap="handleApply">立即申请</button>
     <!-- 立即申报按钮结束 -->
     <!-- 评价内容开始 -->
     <view class="details_comment">

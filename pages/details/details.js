@@ -111,6 +111,14 @@ Page({
     this.setData({ inputContent: '' })
   },
 
+
+  // 立即申请
+  handleApply(){
+    wx.navigateTo({
+      url: '/pages/webView/webView'
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
