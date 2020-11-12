@@ -10,7 +10,8 @@
     "pages/list/list",
     "pages/details/details",
     "pages/selectedDetails/selectedDetails",
-    "pages/ProjectDetails/ProjectDetails"
+    "pages/ProjectDetails/ProjectDetails",
+    "pages/webView/webView"
   ],
   "window":{
     "backgroundTextStyle":"light",

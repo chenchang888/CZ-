@@ -57,5 +57,5 @@
         </view> 
     </view>
     <!-- 底部按钮 -->
-    <button class="apply_btn">立即申报</button>
+    <button class="apply_btn" bindtap="handleApply">立即申报</button>
 </view>
