@@ -109,7 +109,7 @@ Page({
 
   // 搜索
   handleSearch(e) {
-    console.log(e.detail);
+    // console.log(e.detail);
     contentSearch(e)
   },
   // 项目查找
