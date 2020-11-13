@@ -2,11 +2,11 @@
 page {
   background-color: #f9f9f9;
 }
-.header_container {
+.header {
   overflow: hidden;
   background-color: @backgroundColor;
   // 搜索框开始
-  .search_container {
+  .search {
     display: flex;
     align-items: center;
     width: 680rpx;
@@ -74,24 +74,24 @@ page {
   // 最新公告结束
 }
 // 政策导航开始
-.policy_nav-container {
+.main {
   height: 100%;
   margin: 20rpx 0;
   overflow: hidden;
   background-color: @backgroundColor;
-  .enterprise_policy {
+  .policy_container {
     width: 690rpx;
     height: 100%;
     margin: 40rpx auto;
     overflow: hidden;
     border-radius: 10rpx;
     box-shadow: 0rpx 3rpx 20rpx 0rpx rgba(140, 163, 192, 0.2);
-    .enterprise_title {
+    .policy_title {
       display: flex;
       justify-content: space-between;
       width: 100%;
       margin-top: 49rpx;
-      .enterprise_policy-name {
+      .policy_name {
         display: flex;
         align-items: center;
         color: var(--themeColor);
@@ -99,14 +99,14 @@ page {
           font-size: 36rpx;
           font-weight: bold;
         }
-        .enterprise_policy-line {
+        .policy_line {
           width: 6rpx;
           height: 30rpx;
           margin-right: 21rpx;
           background: var(--themeColor);
         }
       }
-      .enterprise_policy-more {
+      .policy_more {
         display: flex;
         align-items: center;
         margin-right: 37rpx;
@@ -115,13 +115,13 @@ page {
       }
     }
     // 政策导航项
-    .enterprise_list {
+    .policy_list {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
       margin-top: 11rpx;
       padding: 25rpx 1rpx;
-      .enterprise_list-nav {
+      .policy_list-item {
         width: 25%;
         text-align: center;
         image {
