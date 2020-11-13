@@ -62,7 +62,6 @@
 .center_wrap .person_info .info_title .info_title {
   margin-left: 20rpx;
   font-size: 30rpx;
-  font-family: Microsoft YaHei;
   color: var(--titleColor);
 }
 .center_wrap .person_info .info_arrow {

@@ -28,8 +28,8 @@ page {
 }
 .details_wrap .details_content {
   padding: 18rpx 0;
-  border-top: 1rpx solid rgba(100, 100, 100, 0.1);
-  border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
+  border-top: 1rpx solid var(--baseRgb);
+  border-bottom: 1rpx solid var(--baseRgb);
 }
 .details_wrap .details_content text {
   line-height: 48rpx;
@@ -67,8 +67,8 @@ page {
   align-items: center;
   padding: 30rpx 42rpx;
   margin-top: 10rpx;
-  border-top: 1rpx solid rgba(100, 100, 100, 0.1);
-  border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
+  border-top: 1rpx solid var(--baseRgb);
+  border-bottom: 1rpx solid var(--baseRgb);
 }
 .details_wrap .like_sharing .like {
   display: flex;

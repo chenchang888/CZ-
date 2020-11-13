@@ -22,6 +22,7 @@ page {
   --themeColor: #349be9;
   --titleColor:#333;
   --fontColor:#666;
+  --baseRgb:rgba(100, 100, 100, 0.2);
 }
 /* 字体颜色 */
 

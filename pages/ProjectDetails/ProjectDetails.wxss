@@ -27,8 +27,8 @@ page {
 }
 .project_details-wrap .details_content {
   padding: 20rpx 0;
-  border-top: 1rpx solid rgba(100, 100, 100, 0.1);
-  border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
+  border-top: 1rpx solid var(--baseRgb);
+  border-bottom: 1rpx solid var(--baseRgb);
 }
 .project_details-wrap .details_content view {
   margin-bottom: 10rpx;
@@ -53,7 +53,7 @@ page {
 }
 .project_details-wrap .details_footer {
   padding: 15rpx 0;
-  border-bottom: 1rpx solid rgba(100, 100, 100, 0.2);
+  border-bottom: 1rpx solid var(--baseRgb);
 }
 .project_details-wrap .details_footer .apply_materials {
   margin-top: 30rpx;
