@@ -37,6 +37,11 @@ Page({
    */
   onLoad: function (options) {
 
+    // 分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
 
   /**

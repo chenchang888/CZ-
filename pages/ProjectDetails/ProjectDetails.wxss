@@ -8,15 +8,16 @@ page {
 }
 .details_header .details_title {
   width: 100%;
+  text-align: justify;
   font-size: 44rpx;
-  font-weight: 500;
-  color: #333;
+  font-weight: 550;
+  color: #222;
 }
 .details_header .details_from {
   display: flex;
   justify-content: start;
   line-height: 60rpx;
-  color: #999;
+  color: #888;
   font-size: 28rpx;
 }
 .details_header .details_from .details_unit {

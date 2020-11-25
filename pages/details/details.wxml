@@ -118,21 +118,23 @@
     <view class="details_bottom">
         <!-- 评论 -->
         <view class="comment_input">
-            <input value="" type="text" maxlength="50" bindinput="getInputContent" placeholder-style="text-align:center"
+            <textarea value="" type="text" adjust-position  cursor-spacing="40rpx" maxlength="500" auto-height="{{lineHeight}}" bindblur="getInputContent" bindlinechange="lineChange" placeholder-style="text-align:center"
                 placeholder="欢迎您写出精彩点评">
-            </input>
+            </textarea>
         </view>
-        <button class="comment_btn" bindtap="commenHandle" size="mini" plain>提交
-            <!-- <image class="" src="../../icon/news_small.png" /> -->
-        </button>
-        <!-- 收藏 -->
-        <view class="comment_img" bindtap="collectHandle">
-            <image class=""
-                src="{{collection?'../../icon/content_collect_active.png':'../../icon/content_collect.png'}}" />
+        <view class="bottom_right">
+            <view class="comment_btn" bindtap="commenHandle">提交
+                <!-- <image class="" src="../../icon/news_small.png" /> -->
+            </view>
+            <!-- 收藏 -->
+            <view class="comment_img" bindtap="collectHandle">
+                <image class=""
+                    src="{{collection?'../../icon/content_collect_active.png':'../../icon/content_collect.png'}}" />
+            </view>
+            <button class="share_img" open-type="share" size="mini" plain>
+                <image class="" src="../../icon/share.png" />
+            </button>
         </view>
-        <button class="share_img" open-type="share" size="mini" plain>
-            <image class="" src="../../icon/share.png" />
-        </button>
     </view>
     <!-- 底部结束 -->
 </view>

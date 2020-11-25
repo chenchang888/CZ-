@@ -1,11 +1,13 @@
-// pages/details/details.js
+import { authorLogin } from "../../utils/util"
+const { request } = require("../../request/request")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    flag: false,
+    // 文章id
+    detailsId: '',
     // 是否有评论内容
     commentFlag: false,
     // 点赞状态
@@ -17,29 +19,25 @@ Page({
     // 是否显示立即申请按钮
     showBtn: false,
     // 评论输入框内容
-    inputContent: ''
+    inputContent: '',
+    // 输入框自动撑高
+    lineHeight: true
   },
-  tiaozhaun() {
-    this.setData({ flag: true })
-  },
-
 
   // 获取政策详情
-  getDetails() {
-    wx.downloadFile({
-      // 示例 url，并非真实存在
-      url: 'http://example.com/somefile.pdf',
-      success: function (res) {
-        const filePath = res.tempFilePath
-        wx.openDocument({
-          filePath: filePath,
-          success: function (res) {
-            console.log('打开文档成功')
-          }
-        })
+  async getDetails() {
+    const openid = wx.getStorageSync('openId')
+    // 判断收藏状态
+    const res = await request({
+      url: "/subject/PolicyDetails",
+      data: {
+        datArticleId: 0,
+        openid
       }
-    })
+    });
+    // this.setData({ collection: collectFlag })
   },
+
   // 政策附件
   handleFiles() {
     wx.downloadFile({
@@ -58,31 +56,43 @@ Page({
   },
 
   // 点赞
-  likesHandle() {
+  async likesHandle() {
     if (this.data.likes) {
       this.setData({ number: this.data.number - 1 })
     } else {
       this.setData({ number: this.data.number + 1 })
     }
+    const res = await request({
+      url: "",
+      data: {}
+    })
+    console.log(res);
     this.setData({
       likes: !this.data.likes,
     })
   },
+
   // 收藏
-  collectHandle() {
-    if (this.data.collection) {
-      wx.showToast({
-        title: '已取消收藏',
-        icon: 'none',
-        duration: 2000
-      })
-    } else {
-      wx.showToast({
-        title: '已收藏',
-        icon: 'success',
-        duration: 2000
-      })
-    }
+  async collectHandle() {
+    // const collectList = await request({ url: "/subject/Collection" })
+    // const index = collectList.findIndex(item => {
+    //   item === this.data.detailsId
+    // });
+    // if (index === -1) {
+    //   collectList.push(this.data.detailsId)
+    //   wx.showToast({
+    //     title: '已收藏',
+    //     icon: 'success',
+    //     duration: 2000
+    //   })
+    // } else {
+    //   collectList.splice(index, 1)
+    //   wx.showToast({
+    //     title: '已取消收藏',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    // }
     this.setData({ collection: !this.data.collection })
   },
 
@@ -93,8 +103,24 @@ Page({
       inputContent: e.detail.value
     })
   },
+
+  // 评论输入框撑高
+  lineChange(e) {
+    console.log(e);
+    console.log(e.detail.lineCount);
+    const lineNum = e.detail.lineCount
+    if (lineNum <= 3) {
+      this.setData({
+        lineHeight: true
+      })
+    } else {
+      this.setData({
+        lineHeight: false
+      })
+    }
+  },
   // 评论提交
-  commenHandle() {
+  async commenHandle() {
     if (this.data.inputContent.trim() === '') {
       wx.showToast({
         title: '内容不能为空',
@@ -103,6 +129,16 @@ Page({
       })
       return
     }
+    // const res = await request({
+    //   url: "/subject/saveComment",
+    //   data: {
+    //     Id: '',
+    //     Content: '',
+    //     datArticleId:'',
+    //     openId: ''
+    //   }
+    // })
+    // console.log(res);
     wx.showToast({
       title: '提交成功',
       icon: 'success',
@@ -111,9 +147,8 @@ Page({
     this.setData({ inputContent: '' })
   },
 
-
   // 立即申请
-  handleApply(){
+  handleApply() {
     wx.navigateTo({
       url: '/pages/webView/webView'
     })
@@ -124,10 +159,15 @@ Page({
    */
   onLoad: function (options) {
     console.log(options);
+    this.setData({ detailsId: options.id })
     if (options.id === '8') {
       this.setData({ showBtn: true })
     }
-    this.getDetails();
+    // 分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
 
   /**
@@ -141,7 +181,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getDetails();
   },
 
   /**

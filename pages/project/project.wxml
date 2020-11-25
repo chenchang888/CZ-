@@ -14,12 +14,12 @@
   </view>
   <!-- 头部结束 -->
   <!-- 内容部分开始 -->
-  <view class="project_main">
-    <navigator class="project_item" wx:for="{{5}}" url="../ProjectDetails/ProjectDetails">
+  <view class="project_main  {{showPopup?'project_main-popup':''}}">
+    <navigator class="project_item" wx:for="{{applyList}}" wx:key="id" url="../ProjectDetails/ProjectDetails?id={{item.id}}">
       <view class="item_state">距离截止1552天</view>
-      <view class="item_title">支持产业创新</view>
-      <view class="item_department">市发改委</view>
-      <view class="item_time">2020-10-15</view>
+      <view class="item_title">{{item.proTitle}}</view>
+      <view class="item_department">{{item.deptName}}</view>
+      <view class="item_time">{{item.pubTime}}</view>
     </navigator>
   </view>
   <!-- 内容部分结束 -->
@@ -33,7 +33,7 @@
           <view class="popup_name">政策主题</view>
           <view class="popup_content">
             <view class="policy_themes {{activeTheme===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
-              wx:key="item.id" bindtap="chooseTheme" data-id="{{item.id}}">
+              wx:key="id" bindtap="chooseTheme" data-id="{{item.id}}">
               <text class="">{{item.title}}</text>
             </view>
             <!-- 占位 -->
@@ -47,7 +47,7 @@
           <view class="popup_name">政策等级</view>
           <view class="popup_content">
             <view class="policy_themes {{activeGrade===item.id?'active_themes':''}}" wx:for="{{policyGrade}}"
-              wx:key="item.id" bindtap="chooseGrade" data-id="{{item.id}}">
+              wx:key="id" bindtap="chooseGrade" data-id="{{item.id}}">
               <text class="">{{item.grade}}</text>
             </view>
             <!-- 占位 -->
@@ -61,7 +61,7 @@
           <view class="popup_name">政策年份</view>
           <view class="popup_content">
             <view class="policy_themes {{activeYear===item.id?'active_themes':''}}" wx:for="{{policyYear}}"
-              wx:key="item.id" bindtap="chooseYear" data-id="{{item.id}}">
+              wx:key="id" bindtap="chooseYear" data-id="{{item.id}}">
               <text class="">{{item.year}}</text>
             </view>
             <!-- 占位 -->
@@ -75,6 +75,9 @@
           <view class="popup_cancel" bindtap="closePopur">取消</view>
           <view class="popup_true" bindtap="determineBtn">确定</view>
         </view>
+      </view>
+      <view class="popup_other">
+        
       </view>
     </view>
   </scroll-view>

@@ -9,6 +9,7 @@ page {
 }
 .collection_wrap .collection_item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 9rpx;
   border-radius: 10rpx;

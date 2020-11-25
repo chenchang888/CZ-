@@ -1,4 +1,5 @@
-import { showModal } from "../../utils/util"
+import { request } from "../../request/request"
+import { authorLogin, loginApi } from "../../utils/util"
 Page({
 
   /**
@@ -6,18 +7,53 @@ Page({
    */
   data: {
     // 根据是否登录显示页面
-    pageShow: false
+    pageShow: false,
+    // 收藏数据
+    collectData: []
   },
 
+  // 获取收藏
+  async getCollectData() {
+    const that = this
+    const open_id = wx.getStorageSync("openId") || [];
+    // 请求数据
+    const res = await request({
+      url: "/personal/getCollect",
+      data: {
+        open_id
+      }
+    })
+    console.log(res);
+    const collectData = res.data.data.records
+    that.setData({
+      collectData,
+      pageShow: true
+    })
 
+  },
   // 删除收藏政策
-  deleteCollection() {
+  deleteCollection(event) {
+    console.log(event.currentTarget.dataset.id);
+    const deleteId = event.currentTarget.dataset.id
+    const collectData = this.data.collectData
+    const deleteIndex = collectData.findIndex((item) => {
+      item.id === deleteId
+    })
+    if (deleteIndex === -1) {
+      return
+    }
+    const openId = wx.getStorageSync("openId") || [];
     wx.showModal({
       title: '提示',
       content: '确定要删除吗',
-      success(res) {
+      async success(res) {
         if (res.confirm) {
           console.log('用户点击确定')
+          const res = await request({
+            url: "/subject/Collection",
+            
+            openId
+          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -27,19 +63,26 @@ Page({
   // 是否登录
   getAuthSetting() {
     const that = this
-    // let setTime = null
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          showModal()
-          // clearTimeout(setTime)
-        } else {
-          // setTime = setTimeout(() => {
-            that.setData({
-              pageShow: true
-            })
-          // }, 1);
-        }
+    wx.checkSession({
+      success() {
+        that.getCollectData()
+      },
+      fail() {
+        console.log("未登录");
+        wx.showModal({
+          title: "提示",
+          content: "您还未登陆，请前往登录",
+          success(res) {
+            if (res.confirm) {
+              console.log('点击了确定');
+            } else if (res.cancel) {
+              console.log('点击了取消');
+            }
+            wx.navigateBack({
+              delta: 1
+            });
+          },
+        })
       }
     })
   },
@@ -47,7 +90,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getAuthSetting()
   },
 
   /**
@@ -61,7 +103,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getAuthSetting()
   },
 
   /**

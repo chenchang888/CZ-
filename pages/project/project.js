@@ -1,4 +1,5 @@
 import { contentSearch } from '../../utils/util'
+import { request } from "../../request/request"
 Page({
 
   /**
@@ -7,6 +8,8 @@ Page({
   data: {
     // 显示列表弹出层
     showPopup: false,
+    // 申报列表
+    applyList: [],
 
     // 政策主题
     policyThemes: [
@@ -107,14 +110,41 @@ Page({
     activeYear: 0,
   },
 
+  // 请求项目列表
+  async getProject(value) {
+    wx.showLoading({
+      title: "加载中",
+      mask: true
+    });
+    const res = await request({
+      url: "/project/list",
+      data: { value }
+    })
+    console.log(res);
+    this.setData({
+      applyList: res.data.data.records
+    })
+    wx.hideLoading()
+  },
   // 搜索
-  handleSearch(e) {
-    // console.log(e.detail);
-    contentSearch(e)
+  async handleSearch(e) {
+    console.log(e.detail);
+    const value = e.detail
+    if (e.detail.trim() === '') {
+      wx.showToast({
+        title: '搜索内容不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    console.log(6666);
+    this.getProject(value)
+    console.log(res);
   },
   // 项目查找
   lookUpHandle() {
-    this.setData({ showPopup: true })
+    this.setData({ showPopup: !this.data.showPopup })
   },
   // 政策主题选择
   chooseTheme(e) {
@@ -137,6 +167,15 @@ Page({
       activeYear: e.currentTarget.dataset.id
     })
   },
+  // 提交确定
+  determineBtn() {
+    // const res = await request({
+    //   url:"",
+    //   data:{}
+    // })
+    // console.log(res);
+    this.setData({ showPopup: false })
+  },
   // 取消弹出层
   closePopur() {
     this.setData({ showPopup: false })
@@ -146,7 +185,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getProject()
+    // 分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
 
   /**

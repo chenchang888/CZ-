@@ -4,13 +4,8 @@
         <view class="header">
             <!-- 搜索框开始 -->
             <my-search my-class="search_container" bindInputEvent="handleSearch"></my-search>
-            <!-- 个人 企业选择项 -->
-            <view class="select_item" wx:if="{{selectCategory}}">
-                <view class="select_same {{selsecState===1?'select_active':''}}" bindtap="selectPersonal">个人政策</view>
-                <view class="select_same {{selsecState===2?'select_active':''}}" bindtap="selectEnterprise">企业政策</view>              
-            </view>
             <!-- 选择列表开始 -->
-            <view class="select" wx:else>
+            <view class="select">
                 <view class="select_list" bindtap="showPopup" wx:for="{{selectList}}" wx:key="id" data-id="{{item.id}}">
                     <view class=" {{current===item.id?'fontColor':'select_title'}}">{{item.title}}</view>
                     <image class="select_img" src="{{current===item.id?'../../icon/up.png':'../../icon/down.png'}}" />
@@ -26,7 +21,9 @@
                     <view class="policy_title">【解读】合肥市2020年重点项目出炉！2083个项目，总投资24000亿元</view>
                     <view class="policy_other">
                         <view class="policy_title-introduce">
-                            <view class="policy_from">合肥市</view>
+                            <view class="policy_from {{item1.item[0]?'':'policy_attribute-show'}}">合肥市</view>
+                            <view class="policy_attribute-one {{item1.item[1]?'':'policy_attribute-show'}}">合肥市</view>
+                            <view class="policy_attribute-two {{item1.item[2]?'':'policy_attribute-show'}}">合肥市</view>
                         </view>
                         <view class="policy_title-time">2020-10-30</view>
                     </view>

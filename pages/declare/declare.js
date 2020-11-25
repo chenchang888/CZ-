@@ -1,4 +1,4 @@
-import { showModal } from "../../utils/util"
+import { authorLogin } from "../../utils/util"
 Page({
 
   /**
@@ -11,22 +11,29 @@ Page({
 
   // 是否登录
   getAuthSetting() {
-    const that = this
-    // let setTime = null
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          showModal()
-          // clearTimeout(setTime)
-        } else {
-          // setTime = setTimeout(() => {
-            that.setData({
-              pageShow: true
-            })
-          // }, 1);
-        }
-      }
-    })
+    // 定义函数设置登录显示  
+    const getAuthShow = () => {
+      this.setData({
+        pageShow: true
+      })
+    }
+    authorLogin({ getAuthShow })
+    // const that = this
+    // // let setTime = null
+    // wx.getSetting({
+    //   success(res) {
+    //     if (!res.authSetting['scope.userInfo']) {
+    //       showModal()
+    //       // clearTimeout(setTime)
+    //     } else {
+    //       // setTime = setTimeout(() => {
+    //         that.setData({
+    //           pageShow: true
+    //         })
+    //       // }, 1);
+    //     }
+    //   }
+    // })
   },
 
   // // 文件

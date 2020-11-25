@@ -1,6 +1,16 @@
 .line_color {
   background-color: rgba(0, 0, 0, 0.5);
 }
+.line {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  border-bottom: solid 1px rgba(150, 150, 150, 0.5);
+  transform: scale(0.5);
+  transform-origin: 0 0;
+}
 .wrap {
   width: 100%;
   height: 100%;
@@ -15,6 +25,7 @@
 .wrap .list_content .header {
   position: fixed;
   top: 0;
+  z-index: 99;
   width: 100%;
   height: 160rpx;
   padding: 30rpx 20rpx 0;
@@ -68,14 +79,24 @@
   margin-top: 175rpx;
   padding: 0 20rpx;
 }
+.wrap .list_content .policy_list .policy_item:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  border-bottom: solid 1px rgba(150, 150, 150, 0.5);
+  transform: scale(0.5);
+  transform-origin: 0 0;
+}
 .wrap .list_content .policy_list .policy_item {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 100%;
   padding: 20rpx 10rpx;
-  border-bottom: 1rpx solid var(--baseRgb);
 }
 .wrap .list_content .policy_list .policy_item .policy_list-img {
   flex: 1;
@@ -106,12 +127,11 @@
   display: flex;
 }
 .wrap .list_content .policy_list .policy_item .policy_title-container .policy_other .policy_title-introduce view {
-  display: inline-block;
   line-height: 30rpx;
   margin-right: 10rpx;
   border-radius: 5rpx;
   padding: 0 10rpx;
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: #fff;
 }
 .wrap .list_content .policy_list .policy_item .policy_title-container .policy_other .policy_title-introduce .policy_from {
@@ -123,7 +143,11 @@
 .wrap .list_content .policy_list .policy_item .policy_title-container .policy_other .policy_title-introduce .policy_attribute-two {
   background: #f7a939;
 }
+.wrap .list_content .policy_list .policy_item .policy_title-container .policy_other .policy_title-introduce .policy_attribute-show {
+  display: none;
+}
 .wrap .list_content .policy_list .policy_item .policy_title-container .policy_other .policy_title-time {
+  font-size: 22rpx;
   color: #999;
 }
 .wrap .popup_container {

@@ -1,4 +1,4 @@
-// pages/center/center.js
+import { loginApi } from "../../utils/util"
 Page({
 
   /**
@@ -13,17 +13,18 @@ Page({
   // 登录
   getUserInfo(e) {
     const that = this
-    console.log(e);
-    if(e.detail.errMsg==='getUserInfo:fail auth deny'){
+    // console.log(e);
+    const { userInfo } = e.detail
+    if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
       return
     }
-    const { userInfo } = e.detail
+    loginApi(e);
     this.setData({
       userInfo,
       show: true
     })
   },
-  // 检验登录
+  // 检验用户信息登录
   getInfo() {
     const that = this
     wx.getSetting({
@@ -31,7 +32,7 @@ Page({
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: function (res) {
-              console.log(res);
+              // console.log(res);
               const { userInfo } = res
               that.setData({
                 userInfo,
@@ -43,11 +44,33 @@ Page({
       }
     })
   },
+  // 检测是否openId登录
+  getOpenId() {
+    const that = this
+    wx.checkSession({
+      success() {
+        that.getInfo();
+      },
+      fail() {
+        // session_key 已经失效，需要重新执行登录流程
+        // 调用登录api
+        if(that.data.show){
+          loginApi();
+        }
+        //重新登录
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getInfo()
+    // 分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
 
   /**
@@ -61,7 +84,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.getOpenId()
+
   },
 
   /**

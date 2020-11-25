@@ -1,19 +1,28 @@
+.line {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  border-bottom: solid 1px rgba(150, 150, 150, 0.5);
+  transform: scale(0.5);
+  transform-origin: 0 0;
+}
 page {
   background: #ededed;
 }
 .project_wrap {
-  height: 100%;
-  border-top: 1rpx solid #000;
   padding: 0 15rpx;
+  overflow: hidden;
 }
 .project_wrap .project_header {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99;
   width: 100%;
   height: 280rpx;
   padding: 30rpx 20rpx;
-  border-top: 1rpx solid var(--baseRgb);
   background-color: #fff;
 }
 .project_wrap .project_header .lookupBtn {
@@ -37,15 +46,30 @@ page {
 .project_wrap .project_header .project_conditions view {
   color: #fff;
 }
+.project_wrap .project_main-popup {
+  position: fixed;
+  padding-bottom: 300rpx;
+}
 .project_wrap .project_main {
   margin-top: 278rpx;
+  padding: 0 5rpx;
   border-radius: 5rpx;
   background-color: #fff;
 }
+.project_wrap .project_main .project_item:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  border-bottom: solid 1px rgba(150, 150, 150, 0.5);
+  transform: scale(0.5);
+  transform-origin: 0 0;
+}
 .project_wrap .project_main .project_item {
+  position: relative;
   display: flex;
-  border-radius: 10rpx;
-  border-bottom: 1rpx solid var(--baseRgb);
+  border-radius: 5rpx;
 }
 .project_wrap .project_main .project_item view {
   display: flex;
@@ -53,14 +77,14 @@ page {
   align-items: center;
   width: 25%;
   height: 100rpx;
-  padding: 5rpx;
+  padding: 8rpx;
   text-align: center;
   font-size: 28rpx;
   color: var(--titleColor);
 }
 .project_wrap .popup_container {
   position: fixed;
-  top: 0;
+  top: 280rpx;
   left: 0;
   width: 100%;
   height: 100%;
@@ -140,6 +164,11 @@ page {
   font-size: 40rpx;
   color: #fff;
   background-color: var(--themeColor);
+}
+.project_wrap .popup_container .popup_other {
+  height: 250rpx;
+  width: 100%;
+  opacity: 0;
 }
 .project_wrap .popup_display {
   display: none;

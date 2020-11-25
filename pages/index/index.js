@@ -11,18 +11,17 @@ Page({
     // 轮播图
     swiperImg: {},
     // 最新公告
-    newNotic: '',
-    // 导航项
-    navList: ''
+    newNotic: {},
+    // 企业导航项
+    enterpriseNav: [],
+    // 个人导航
+    personalNav: []
   },
 
   // 搜索框失去焦点
   inputBlur(e) {
-    console.log(e);
     const { value } = e.detail
     this.setData({ inputContent: value })
-    console.log(this.data.inputContent);
-
   },
 
   // 搜索
@@ -38,49 +37,81 @@ Page({
     }
     this.setData({ inputContent: '' })
     wx.navigateTo({
-      url: '../list/list?content=inputContent'
+      url: '../list/list?content=' + inputContent + ''
     })
   },
 
   // 获取轮播图
-  // async getSwiperList() {
-  //   var res = await request({
-  //     url: '/banners'
-  //   })
-  //   console.log(res);
-  //   const swiperImg = res.data.data
-  //   if (res.statusCode === 200) {
-  //     this.setData({
-  //       swiperImg
-  //     })
-  //   } else {
-  //     wx.showToast(
-  //       {
-  //         title: '加载错误',
-  //         icon: 'none',
-  //         time: 2000
-  //       }
-  //     )
-  //   }
-  // },
-
-  // 获取最新公告
-  getNewNotice() {
-
+  async getSwiperList() {
+    var res = await request({
+      url: '/wx/banners'
+    })
+    console.log(res);
+    const swiperImg = res.data.data
+    if (res.statusCode === 200) {
+      this.setData({
+        swiperImg
+      })
+    } else {
+      wx.showToast(
+        {
+          title: '加载错误',
+          icon: 'none',
+          time: 2000
+        }
+      )
+    }
   },
 
-  // 获取导航选项
-  getNavList() {
+  // 获取最新公告
+  async getNewNotice() {
+    var res = await request({ url: "/wx/getNews" })
+    const newNotic = res.data.data
+    this.setData({
+      newNotic
+    })
+  },
 
+  // 获取企业导航选项
+  async getNavList() {
+    var res = await request({
+      url: "/wx/getDatSubjectData",
+      data: {
+        subjectType: 1,
+        Num: 8
+      }
+    })
+    console.log(res);
+    const enterpriseNav = res.data.data
+    this.setData({ enterpriseNav })
+  },
+  // 获取个人导航选项
+  async getPerList() {
+    var res = await request({
+      url: "/wx/getDatSubjectData",
+      data: {
+        subjectType: 0,
+        Num: 8
+      }
+    })
+    console.log(res);
+    const personalNav = res.data.data
+    this.setData({ personalNav })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.getSwiperList();
+    this.getSwiperList();
     this.getNewNotice();
     this.getNavList();
+    this.getPerList();
+    // 分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
 
   /**
@@ -94,7 +125,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**

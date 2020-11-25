@@ -5,17 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 显示个人企业选择项还是下拉弹出层项
-    selectCategory: false,
-
-    // 选择个人企业状态
-    selsecState: 0,
-
     // 显示政策列表图片
     shows: true,
-
-    // 显示列表弹出层
-    // showPopup: false,
 
     // 列表点击状态,显示弹出层
     current: 0,
@@ -140,18 +131,6 @@ Page({
     contentSearch(e)
   },
 
-  // 个人政策
-  selectPersonal() {
-    this.setData({
-      selsecState: 1
-    })
-  },
-  // 企业政策
-  selectEnterprise() {
-    this.setData({
-      selsecState: 2
-    })
-  },
   // 显示弹出层
   showPopup(e) {
     console.log(e);
@@ -208,6 +187,11 @@ Page({
    */
   onLoad: function (options) {
     console.log(options);
+    // 分享
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    })
   },
 
   /**
