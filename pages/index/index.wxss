@@ -112,17 +112,16 @@ page {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin-top: 11rpx;
   padding: 25rpx 1rpx;
 }
 .main .policy_container .policy_list .policy_list-item {
   width: 25%;
   text-align: center;
+  margin: 25rpx 0;
 }
 .main .policy_container .policy_list .policy_list-item image {
-  height: 140rpx;
+  height: 100rpx;
   padding: 0 36rpx;
-  margin: 25rpx 0;
   box-sizing: border-box;
 }
 .main .policy_container .policy_list .policy_list-item view {

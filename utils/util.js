@@ -1,5 +1,5 @@
 import { request } from "../request/request"
-// 检验是否登录
+// 是否登录提示
 const showModal = () => {
     wx.showModal({
         title: '提示',
@@ -18,32 +18,38 @@ const showModal = () => {
         }
     })
 }
-// 检验登录
-const authorLogin = (getAuthShow) => {
+// 检验openId登录
+const authorLogin = () => {
     wx.checkSession({
         success() {
             //session_key 未过期，并且在本生命周期一直有效
-            getAuthShow.getAuthShow();
         },
         fail() {
             // session_key 已经失效，需要重新执行登录流程
-            wx.showModal({
-                title: "提示",
-                content: "您还未登陆，是否登录",
-                success(res) {
-                    if (res.confirm) {
-                        console.log('点击了确定');
-                        // 调用登录api
-                        loginApi(getAuthShow);
-                    } else if (res.cancel) {
-                        console.log('点击了取消');
-                        wx.navigateBack({
-                            delta: 1
-                        });
-                    }
-                },
-            }) //重新登录
+            showModal();
         }
+    })
+}
+
+// 检验是否微信信息登录
+const userInfoLogin = () => {
+    return new Promise((resolve, reject) => {
+        wx.getSetting({
+            success(res) {
+                if (!res.authSetting['scope.userInfo']) {
+                    showModal()
+                } else {
+                    // 已授权获取信息
+                    wx.getUserInfo({
+                        success(res) {
+                            console.log(res);
+                            resolve(res)
+                        }
+                    })
+                }
+            }
+        })
+
     })
 }
 
@@ -98,7 +104,7 @@ const contentSearch = (event) => {
         return
     }
 }
-export { showModal, contentSearch, authorLogin, loginApi }
+export { userInfoLogin, showModal, contentSearch, authorLogin, loginApi }
 const formatTime = date => {
     const year = date.getFullYear()
     const month = date.getMonth() + 1

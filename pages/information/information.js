@@ -1,4 +1,7 @@
 import { showModal } from "../../utils/util"
+import { userInfoLogin } from "../../utils/util"
+import { authorLogin } from "../../utils/util"
+import { request } from "../../request/request"
 Page({
 
   /**
@@ -11,6 +14,12 @@ Page({
     genderFlag01: true,
     genderFlag02: false,
 
+    // 请求参数
+    params: {
+      phone: '',
+      name: '',
+      address: ''
+    },
     // 信息
     personInfo: {
       phone: '输入手机号码',
@@ -27,33 +36,30 @@ Page({
     addressInput: true
   },
 
-  // 登录状态
-  getAuthSetting() {
+  // 检验登录状态
+  async getAuthSetting() {
     const that = this
-    // let setTime = null
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          showModal()
-          // clearTimeout(setTime)
-        } else {
-          // setTime = setTimeout(() => {
-            // 已授权获取信息
-            wx.getUserInfo({
-              success(res) {
-                console.log(res);
-                const { userInfo } = res
-                that.setData({
-                  userInfo,
-                  pageShow: true
-                })
-              }
-            })
-          // }, 1);
-        }
+    authorLogin()
+    const { userInfo } = await userInfoLogin()
+    that.setData({
+      userInfo,
+      pageShow: true
+    })
+    this.getUserIfo();
+  },
+
+  // 获取个人资料
+  async getUserIfo() {
+    const token = wx.getStorageSync('token')
+    const res = await request({
+      url: "/personal/getUser",
+      header:{
+        "Authorization": token
       }
     })
+    console.log(res);
   },
+
   // 点击输入手机号
   getPhoneNumber(e) {
     this.setData({ phoneInput: false })
@@ -71,53 +77,70 @@ Page({
     const { value } = e.detail
     if (value.trim() === '') {
       this.setData({
-        phoneInput: true,
         "personInfo.phone": this.data.personInfo.phone
       })
     } else {
       this.setData({
-        phoneInput: true,
         "personInfo.phone": value
       })
     }
+    this.setData({
+      phoneInput: true,
+      "params.phone": value
+    })
   },
   // 姓名输入框失去焦点
   loseNameFocus(e) {
     const { value } = e.detail
     if (value.trim() === '') {
       this.setData({
-        nameInput: true,
         "personInfo.name": this.data.personInfo.name
       })
     } else {
       this.setData({
-        nameInput: true,
         "personInfo.name": value
       })
     }
+    this.setData({
+      nameInput: true,
+      "params.name": value
+    })
   },
   // 邮箱地址输入框失去焦点
   loseAddressFocus(e) {
     const { value } = e.detail
     if (value.trim() === '') {
       this.setData({
-        addressInput: true,
         "personInfo.address": this.data.personInfo.address
       })
     } else {
       this.setData({
-        addressInput: true,
         "personInfo.address": value
       })
     }
+    this.setData({
+      addressInput: true,
+      "params.address": value
+    })
   },
   // 保存
-  preservation() {
-    wx.showToast({
-      title: '保存成功',
-      icon: 'success',
-      duration: 2000
+  async preservation() {
+    const token = wx.getStorageSync('token')
+    const res = await request({
+      url: "/personal/saveUser",
+      data: this.data.params,
+      header: {
+        'Authorization': token
+      },
     })
+    console.log(res);
+    if(res.data.sode===200){
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }
   },
 
   /**

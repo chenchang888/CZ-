@@ -1,9 +1,0 @@
-<view class="details_header">
-        <view class="details_title">
-            <slot></slot>
-        </view>
-        <view class="details_from">
-            <view class="details_unit">滁州市人民政府</view>
-            <view class="details_time">2020-03-09</view>
-        </view>
-    </view>

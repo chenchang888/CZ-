@@ -6,16 +6,18 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 文章详情
+    detailsContent: {},
     // 文章id
     detailsId: '',
     // 是否有评论内容
-    commentFlag: false,
+    commentFlag: true,
     // 点赞状态
     likes: false,
     // 点赞数
     number: 998,
     // 收藏状态
-    collection: false,
+    collection: 0,
     // 是否显示立即申请按钮
     showBtn: false,
     // 评论输入框内容
@@ -31,11 +33,20 @@ Page({
     const res = await request({
       url: "/subject/PolicyDetails",
       data: {
-        datArticleId: 0,
-        openid
+        datArticleId: this.data.detailsId,
+        openid: ''
       }
     });
-    // this.setData({ collection: collectFlag })
+    console.log(res);
+    this.setData({
+      collection: res.data.data.collect,
+      detailsContent: res.data.data
+    })
+    if (res.data.data.policyEvalVOList) {
+      this.setData({ commentFlag: false })
+      return
+    }
+    this.setData({ commentFlag: true })
   },
 
   // 政策附件
@@ -57,48 +68,58 @@ Page({
 
   // 点赞
   async likesHandle() {
-    if (this.data.likes) {
-      this.setData({ number: this.data.number - 1 })
-    } else {
-      this.setData({ number: this.data.number + 1 })
-    }
-    const res = await request({
-      url: "",
-      data: {}
-    })
-    console.log(res);
-    this.setData({
-      likes: !this.data.likes,
-    })
+    // authorLogin()
+    // if (this.data.likes) {
+    //   this.setData({ number: this.data.number - 1 })
+    // } else {
+    //   this.setData({ number: this.data.number + 1 })
+    // }
+    // const res = await request({
+    //   // url: "/subject/praise",
+    //   // method:'post',
+    //   // data: {
+    //   //   openId:''
+    //   // }
+    // })
+    // console.log(res);
+    // this.setData({
+    //   likes: !this.data.likes,
+    // })
   },
 
   // 收藏
   async collectHandle() {
-    // const collectList = await request({ url: "/subject/Collection" })
-    // const index = collectList.findIndex(item => {
-    //   item === this.data.detailsId
-    // });
-    // if (index === -1) {
-    //   collectList.push(this.data.detailsId)
-    //   wx.showToast({
-    //     title: '已收藏',
-    //     icon: 'success',
-    //     duration: 2000
-    //   })
-    // } else {
-    //   collectList.splice(index, 1)
-    //   wx.showToast({
-    //     title: '已取消收藏',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    // }
+    authorLogin()
+    const openId = wx.getStorageSync('openId')
+    const collectList = await request({ 
+      url: "/subject/Collection",
+      data: this.data.detailsId
+    })
+    const index = collectList.findIndex(item => {
+      item === this.data.detailsId
+    });
+    if (index === -1) {
+      collectList.push(this.data.detailsId)
+      wx.showToast({
+        title: '已收藏',
+        icon: 'success',
+        duration: 2000,
+        mask: true
+      })
+    } else {
+      collectList.splice(index, 1)
+      wx.showToast({
+        title: '已取消收藏',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+    }
     this.setData({ collection: !this.data.collection })
   },
 
   // 失去焦点获取输入框评论内容
   getInputContent(e) {
-    console.log(e.detail.value);
     this.setData({
       inputContent: e.detail.value
     })
@@ -106,8 +127,6 @@ Page({
 
   // 评论输入框撑高
   lineChange(e) {
-    console.log(e);
-    console.log(e.detail.lineCount);
     const lineNum = e.detail.lineCount
     if (lineNum <= 3) {
       this.setData({
@@ -160,9 +179,6 @@ Page({
   onLoad: function (options) {
     console.log(options);
     this.setData({ detailsId: options.id })
-    if (options.id === '8') {
-      this.setData({ showBtn: true })
-    }
     // 分享
     wx.showShareMenu({
       withShareTicket: true,

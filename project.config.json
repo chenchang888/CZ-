@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -21,6 +21,8 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -29,8 +31,9 @@
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
-    "useMultiFrameRuntime": false,
-    "useApiHook": true
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.13.1",
@@ -112,7 +115,7 @@
         {
           "name": "详情页",
           "pathName": "pages/details/details",
-          "query": "",
+          "query": "id= 1640",
           "scene": null
         },
         {
@@ -148,6 +151,7 @@
         {
           "name": "pages/webView/webView",
           "pathName": "pages/webView/webView",
+          "query": "",
           "scene": null
         }
       ]

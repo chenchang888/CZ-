@@ -32,9 +32,9 @@
         <view class="popup_header">
           <view class="popup_name">政策主题</view>
           <view class="popup_content">
-            <view class="policy_themes {{activeTheme===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
+            <view class="policy_themes {{params.datSubjectId===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
               wx:key="id" bindtap="chooseTheme" data-id="{{item.id}}">
-              <text class="">{{item.title}}</text>
+              <text class="">{{item.subjectName}}</text>
             </view>
             <!-- 占位 -->
             <view class="seat_view"></view>
@@ -46,9 +46,9 @@
         <view class="popup_header">
           <view class="popup_name">政策等级</view>
           <view class="popup_content">
-            <view class="policy_themes {{activeGrade===item.id?'active_themes':''}}" wx:for="{{policyGrade}}"
+            <view class="policy_themes {{params.docGrade===item.id?'active_themes':''}}" wx:for="{{policyGrade}}"
               wx:key="id" bindtap="chooseGrade" data-id="{{item.id}}">
-              <text class="">{{item.grade}}</text>
+              <text class="">{{item.itemName}}</text>
             </view>
             <!-- 占位 -->
             <view class="seat_view"></view>
@@ -60,9 +60,9 @@
         <view class="popup_header">
           <view class="popup_name">政策年份</view>
           <view class="popup_content">
-            <view class="policy_themes {{activeYear===item.id?'active_themes':''}}" wx:for="{{policyYear}}"
+            <view class="policy_themes {{params.docYear===item.id?'active_themes':''}}" wx:for="{{policyYear}}"
               wx:key="id" bindtap="chooseYear" data-id="{{item.id}}">
-              <text class="">{{item.year}}</text>
+              <text class="">{{item.itemName}}</text>
             </view>
             <!-- 占位 -->
             <view class="seat_view"></view>

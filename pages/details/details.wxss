@@ -32,7 +32,7 @@ page {
   border-top: 1rpx solid var(--baseRgb);
   border-bottom: 1rpx solid var(--baseRgb);
 }
-.details_wrap .details_content text {
+.details_wrap .details_content rich-text {
   line-height: 48rpx;
   font-size: 34rpx;
   color: #555;

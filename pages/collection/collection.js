@@ -29,7 +29,6 @@ Page({
       collectData,
       pageShow: true
     })
-
   },
   // 删除收藏政策
   deleteCollection(event) {
@@ -51,8 +50,9 @@ Page({
           console.log('用户点击确定')
           const res = await request({
             url: "/subject/Collection",
-            
-            openId
+            data:{
+              openId
+            }
           })
         } else if (res.cancel) {
           console.log('用户点击取消')

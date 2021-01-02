@@ -1,3 +1,4 @@
+import { request } from "../../request/request";
 import { loginApi } from "../../utils/util"
 Page({
 
@@ -13,15 +14,41 @@ Page({
   // 登录
   getUserInfo(e) {
     const that = this
-    // console.log(e);
+    console.log(e);
     const { userInfo } = e.detail
     if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
       return
     }
-    loginApi(e);
-    this.setData({
-      userInfo,
-      show: true
+    wx.login({
+      async success(res) {
+        if (res.code) {
+          console.log(res.code);
+          //发起网络请求
+          const result = await request({
+            url: '/personal/wxLogin',
+            method: 'post',
+            data: {
+              code: res.code
+            }
+          })
+          console.log(result);
+          if (result.data.code === 200) {
+            const token = result.data.msg
+            wx.setStorageSync('token', token)
+            wx.showToast({
+              title: '登录成功！',
+              icon: 'success',
+              duration: 2000
+            })
+            that.setData({
+              userInfo,
+              show: true
+            })
+          }
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
     })
   },
   // 检验用户信息登录
@@ -50,14 +77,15 @@ Page({
     wx.checkSession({
       success() {
         that.getInfo();
+        console.log('登录了');
       },
       fail() {
         // session_key 已经失效，需要重新执行登录流程
-        // 调用登录api
-        if(that.data.show){
-          loginApi();
-        }
-        //重新登录
+        // wx.showToast({
+        //   title: '请登陆',
+        //   icon: 'none',
+        //   duration: 2000
+        // })
       }
     })
   },
@@ -85,7 +113,6 @@ Page({
    */
   onShow: function () {
     this.getOpenId()
-
   },
 
   /**

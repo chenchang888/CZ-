@@ -1,6 +1,9 @@
 page {
   background-color: #f3f7fa;
 }
+page {
+  background-color: #f3f7fa;
+}
 .pageshow {
   display: none;
 }

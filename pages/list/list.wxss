@@ -45,6 +45,7 @@
   width: 200rpx;
   height: 72rpx;
   text-align: center;
+  border-bottom: 4rpx solid transparent;
   font-size: 32rpx;
   color: #999;
 }
@@ -127,12 +128,18 @@
   display: flex;
 }
 .wrap .list_content .policy_list .policy_item .policy_title-container .policy_other .policy_title-introduce view {
+  max-width: 126rpx;
   line-height: 30rpx;
   margin-right: 10rpx;
   border-radius: 5rpx;
   padding: 0 10rpx;
   font-size: 22rpx;
   color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  overflow: hidden;
 }
 .wrap .list_content .policy_list .policy_item .policy_title-container .policy_other .policy_title-introduce .policy_from {
   background-color: var(--themeColor);

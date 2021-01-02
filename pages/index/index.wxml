@@ -14,16 +14,16 @@
 		<view class="swiper_container">
 			<swiper class="swiper_group" autoplay="true" indicator-dots="true" interval="3000" circular="true"
 				indicator-active-color="#015BB5">
-				<navigator class="swiper_group-item" wx:for="{{swiperImg}}" wx:key="index" url="../details/details">
+				<navigator class="swiper_group-item" wx:for="{{swiperImg}}" wx:key="index" url="../details/details?id={{newNotic.id}}">
 					<swiper-item>
-						<image class="" src="../../images/1.png" lazy-load="false" />
+						<image class="" src="{{item.filePath}}" lazy-load="false" />
 					</swiper-item>
 				</navigator>
 			</swiper>
 		</view>
 		<!-- 轮播图结束 -->
 		<!-- 最新公告开始 -->
-		<navigator class="notice_container" url="../details/details?id={{newNotic.docCategory}}">
+		<navigator class="notice_container" url="../details/details?id={{newNotic.id}}">
 			<view class="notice_img">
 				<image src="../../icon/new_notice.png" lazy-load="false" />
 			</view>
@@ -44,8 +44,9 @@
 				</navigator>
 			</view>
 			<view class="policy_list">
-				<navigator class="policy_list-item" wx:for="{{enterpriseNav}}" wx:key="id" url="../list/list?typeId=1&itemId={{item.id}}" hover-class="none">
+				<navigator class="policy_list-item" wx:for="{{enterpriseNav}}" wx:key="id" url="../list/list?typeId={{item.subjectType}}&itemId={{item.id}}" hover-class="none">
 					<image src="{{item.subjectIcon}}" lazy-load="false" />
+					<view>{{item.subjectName}}</view>
 				</navigator>
 			</view>
 		</view>
@@ -60,8 +61,9 @@
 				</navigator>
 			</view>
 			<view class="policy_list">
-				<navigator class="policy_list-item" wx:for="{{personalNav}}" wx:key="id" url="../list/list?typeId=0&itemId={{item.id}}" hover-class="none">
+				<navigator class="policy_list-item" wx:for="{{personalNav}}" wx:key="id" url="../list/list?typeId={{item.subjectType}}&itemId={{item.id}}" hover-class="none">
 					<image src="{{item.subjectIcon}}" lazy-load="false" />
+					<view>{{item.subjectName}}</view>
 				</navigator>
 				
 			</view>

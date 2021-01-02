@@ -1,6 +1,5 @@
 page,
 view,
-text,
 input,
 swiper,
 navigator {
@@ -18,11 +17,14 @@ image {
   display: block;
   width: 100%;
 }
-/* 自定义主体颜色 */
 page {
+  /* 自定义主体颜色 */
   --themeColor: #349be9;
+  /* 标题颜色 */
   --titleColor: #333;
+  /* 字体颜色 */
   --fontColor: #666;
+  /* 透明度 */
   --baseRgb: rgba(100, 100, 100, 0.2);
 }
 

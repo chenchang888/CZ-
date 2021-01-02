@@ -15,17 +15,17 @@
         <!-- 头部结束 -->
         <!-- 政策列表开始 -->
         <view class="policy_list">
-            <navigator class="policy_item" url="../details/details?id=8" wx:for="{{10}}">
-                <image class="policy_list-img" src="../../images/2.png"/>
+            <navigator class="policy_item" wx:for="{{listData}}" wx:key="index" wx:for-item="item1" url="../details/details?id={{item1.id}}">
                 <view class="policy_title-container">
-                    <view class="policy_title">【解读】合肥市2020年重点项目出炉！2083个项目，总投资24000亿元</view>
+                    <view class="policy_title">{{item1.docTitle}}</view>
                     <view class="policy_other">
+                        <!-- 标签部分 -->
                         <view class="policy_title-introduce">
-                            <view class="policy_from {{item1.item[0]?'':'policy_attribute-show'}}">合肥市</view>
-                            <view class="policy_attribute-one {{item1.item[1]?'':'policy_attribute-show'}}">合肥市</view>
-                            <view class="policy_attribute-two {{item1.item[2]?'':'policy_attribute-show'}}">合肥市</view>
+                            <view class="policy_from {{item1.datTagVos[0]?'':'policy_attribute-show'}}">{{item1.datTagVos[0].tagName}}</view>
+                            <view class="policy_attribute-one {{item1.datTagVos[1]?'':'policy_attribute-show'}}">{{item1.datTagVos[1].tagName}}</view>
+                            <view class="policy_attribute-two {{item1.datTagVos[2]?'':'policy_attribute-show'}}">{{item1.datTagVos[2].tagName}}</view>
                         </view>
-                        <view class="policy_title-time">2020-10-30</view>
+                        <view class="policy_title-time">{{item1.docPubDate}}</view>
                     </view>
                 </view>
             </navigator>
@@ -35,11 +35,11 @@
     <!-- 弹出层开始 -->
     <scroll-view class="popup_container {{current?'':'popup_display'}} " bindtap="closePopur" scroll-y>
         <view>
-            <view class="popup_content-wrap {{current===1?'open_popup':'popup_display'}}  " catchtap>
+            <view class="popup_content-wrap {{current===1?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{activeTheme===item.id?'active_themes':''}}" wx:for="{{policyThemes}}" wx:key="index" bindtap="chooseTheme"
-                        data-id="{{item.id}}">
-                        <text class="">{{item.title}}</text>
+                    <view class="policy_themes {{activeTheme===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
+                        wx:key="id" bindtap="chooseTheme" data-id="{{item.id}}">
+                        <text class="">{{item.subjectName}}</text>
                     </view>
                     <!-- 占位 -->
                     <view class="seat_view"></view>
@@ -53,10 +53,11 @@
                 </view>
             </view>
             <!-- 弹出层2 -->
-            <view class="popup_content-wrap {{current===2?'open_popup':'popup_display'}}  " catchtap>
+            <view class="popup_content-wrap {{current===2?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{activeGrade===item.id?'active_themes':''}}" wx:for="{{policyGrade}}" wx:key="index" bindtap="chooseGrade" data-id="{{item.id}}">
-                        <text>{{item.grade}}</text>
+                    <view class="policy_themes {{activeGrade===item.itemName?'active_themes':''}}" wx:for="{{policyGrade}}"
+                        wx:key="index" bindtap="chooseGrade" data-grade="{{item.itemName}}">
+                        <text>{{item.itemName}}</text>
                     </view>
                 </view>
                 <view class="popup_content-choose">
@@ -65,10 +66,11 @@
                 </view>
             </view>
             <!-- 弹出层3 -->
-            <view class="popup_content-wrap {{current===3?'open_popup':'popup_display'}}  " catchtap>
+            <view class="popup_content-wrap {{current===3?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{activeYear===item.id?'active_themes':''}}" wx:for="{{policyYear}}" wx:key="index" bindtap="chooseYear" data-id="{{item.id}}">
-                        <text>{{item.year}}</text>
+                    <view class="policy_themes {{activeYear===item.itemName?'active_themes':''}}" wx:for="{{policyYear}}"
+                        wx:key="index" bindtap="chooseYear" data-year="{{item.itemName}}">
+                        <text>{{item.itemName}}</text>
                     </view>
                 </view>
                 <view class="popup_content-choose">

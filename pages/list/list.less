@@ -4,13 +4,16 @@
 .wrap {
   width: 100%;
   height: 100%;
+
   // 弹出层出现，背景底层不滑动
   .list_content-popup {
     position: fixed;
   }
+
   .list_content {
     width: 100%;
     overflow: hidden;
+
     .header {
       position: fixed;
       top: 0;
@@ -21,11 +24,13 @@
       overflow: hidden;
       box-shadow: 0 0rpx 5rpx 0rpx #aaa;
       background-color: #fff;
+
       // 个人,企业选项
       .select_item {
         display: flex;
         justify-content: center;
         align-items: center;
+
         .select_same {
           display: flex;
           justify-content: center;
@@ -33,33 +38,40 @@
           width: 200rpx;
           height: 72rpx;
           text-align: center;
+          border-bottom: 4rpx solid transparent;
           font-size: 32rpx;
           color: #999;
         }
+
         // 选中
         .select_active {
           border-bottom: 4rpx solid var(--themeColor);
           color: var(--themeColor);
         }
       }
+
       // 选择列表开始
       .select {
         display: flex;
         height: 70rpx;
+
         .select_list {
           flex: 1;
           display: flex;
           justify-content: center;
           align-items: center;
+
           .select_title {
             font-size: 32rpx;
             color: #333;
           }
+
           // 下拉状态字体颜色
           .fontColor {
             font-size: 34rpx;
             color: var(--themeColor);
           }
+
           .select_img {
             width: 15rpx;
             height: 8rpx;
@@ -67,15 +79,19 @@
           }
         }
       }
+
       // 选择列表结束
     }
+
     //   政策列表开始
     .policy_list {
       margin-top: 175rpx;
       padding: 0 20rpx;
+
       .policy_item:after {
         .line();
       }
+
       .policy_item {
         position: relative;
         display: flex;
@@ -84,19 +100,23 @@
         width: 100%;
         height: 100%;
         padding: 20rpx 10rpx;
+
         .policy_list-img {
           flex: 1;
           height: 130rpx;
           margin-right: 15rpx;
           border-radius: 10rpx;
         }
+
         //   是否显示图片
         .imgShow {
           display: none;
         }
+
         .policy_title-container {
           flex: 3;
           padding-top: 20rpx;
+
           .policy_title {
             line-height: 36rpx;
             margin-bottom: 15rpx;
@@ -104,33 +124,48 @@
             font-family: Source Han Sans CN;
             font-size: 28rpx;
           }
+
           .policy_other {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             .policy_title-introduce {
               display: flex;
+
               view {
+                max-width: 126rpx;
                 line-height: 30rpx;
+                overflow: hidden;
                 margin-right: 10rpx;
                 border-radius: 5rpx;
                 padding: 0 10rpx;
                 font-size: 22rpx;
                 color: #fff;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                word-break: break-all;
+                overflow: hidden;
               }
+
               .policy_from {
                 background-color: var(--themeColor);
               }
+
               .policy_attribute-one {
                 background-color: #34c1e9;
               }
+
               .policy_attribute-two {
                 background: #f7a939;
               }
+
               .policy_attribute-show {
                 display: none;
               }
             }
+
             .policy_title-time {
               font-size: 22rpx;
               color: #999;
@@ -139,8 +174,10 @@
         }
       }
     }
+
     //   政策列表结束
   }
+
   // 弹出层开始
   .popup_container {
     position: fixed;
@@ -150,25 +187,30 @@
     height: 100%;
     .line_color();
     animation: down 1s;
+
     @keyframes down {
       0% {
         background: rgba(0, 0, 0, 0);
       }
+
       100% {
         background: rgba(0, 0, 0, 0.5);
       }
     }
+
     .popup_content-wrap {
       width: 100%;
       padding: 0 25rpx;
       border-radius: 0 0 30rpx 30rpx;
       background-color: #fff;
+
       .popup_content {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         padding-top: 20rpx;
         box-sizing: border-box;
+
         .policy_themes {
           width: 160rpx;
           line-height: 50rpx;
@@ -177,16 +219,19 @@
           border-radius: 6rpx;
           background-color: #f6f6f6;
           color: #666;
+
           text {
             font-size: 28rpx;
             letter-spacing: 2rpx;
           }
         }
+
         // 选中的主题颜色
         .active_themes {
           background-color: var(--themeColor);
           color: #fff;
         }
+
         .seat_view {
           width: 160rpx;
           height: 0;
@@ -194,10 +239,12 @@
           padding: 0;
         }
       }
+
       .popup_content-choose {
         display: flex;
         justify-content: center;
         padding: 60rpx 0;
+
         .popup_cancel {
           width: 140rpx;
           line-height: 60rpx;
@@ -207,6 +254,7 @@
           color: #999;
           background-color: #f6f6f6;
         }
+
         .popup_true {
           width: 360rpx;
           line-height: 60rpx;
@@ -220,6 +268,7 @@
       }
     }
   }
+
   // 是否显示遮挡层
   .popup_display {
     display: none;
@@ -228,5 +277,6 @@
   .popup_show {
     background: rgba(0, 0, 0, 0.5);
   }
+
   // 弹出层结束
 }

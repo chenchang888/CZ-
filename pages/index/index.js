@@ -6,6 +6,30 @@ Page({
    * 页面的初始数据
    */
   data: {
+
+    // image  写死了，不能怪我，原因我也不知道，请找开发网站和查询机的小伙伴
+    imageCompany: [
+      { url: '../../images/policy_08.png' },
+      { url: '../../images/policy_07.png' },
+      { url: '../../images/policy_06.png' },
+      { url: '../../images/policy_05.png' },
+      { url: '../../images/policy_04.png' },
+      { url: '../../images/policy_03.png' },
+      { url: '../../images/policy_02.png' },
+      { url: '../../images/policy_01.png' },
+    ],
+    imagePerson: [
+      { url: '../../images/policy_16.png' },
+      { url: '../../images/policy_15.png' },
+      { url: '../../images/policy_14.png' },
+      { url: '../../images/policy_13.png' },
+      { url: '../../images/policy_12.png' },
+      { url: '../../images/policy_11.png' },
+      { url: '../../images/policy_10.png' },
+      { url: '../../images/policy_09.png' },
+    ],
+
+
     // 搜索框内容
     inputContent: '',
     // 轮播图
@@ -43,10 +67,11 @@ Page({
 
   // 获取轮播图
   async getSwiperList() {
-    var res = await request({
+    const res = await request({
       url: '/wx/banners'
     })
     console.log(res);
+    
     const swiperImg = res.data.data
     if (res.statusCode === 200) {
       this.setData({
@@ -55,7 +80,7 @@ Page({
     } else {
       wx.showToast(
         {
-          title: '加载错误',
+          title: '请求错误',
           icon: 'none',
           time: 2000
         }
@@ -70,6 +95,8 @@ Page({
     this.setData({
       newNotic
     })
+    console.log(res);
+    
   },
 
   // 获取企业导航选项
@@ -77,12 +104,16 @@ Page({
     var res = await request({
       url: "/wx/getDatSubjectData",
       data: {
-        subjectType: 1,
+        subjectType: 0,
         Num: 8
       }
     })
-    console.log(res);
-    const enterpriseNav = res.data.data
+    var enterpriseNav = res.data.data
+    const imgUrl = this.data.imageCompany
+    // 合并图片数组
+    // imgUrl.forEach((value, index) => {
+    //   enterpriseNav[index].subjectIcon = value.url
+    // })
     this.setData({ enterpriseNav })
   },
   // 获取个人导航选项
@@ -90,12 +121,16 @@ Page({
     var res = await request({
       url: "/wx/getDatSubjectData",
       data: {
-        subjectType: 0,
+        subjectType: 1,
         Num: 8
       }
     })
-    console.log(res);
     const personalNav = res.data.data
+    const imgUrl = this.data.imagePerson
+    // 合并图片数组
+    // imgUrl.forEach((value, index) => {
+    //   personalNav[index].subjectIcon = value.url
+    // })
     this.setData({ personalNav })
   },
 
@@ -125,7 +160,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**

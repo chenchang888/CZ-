@@ -42,12 +42,12 @@ page {
 .info_wrap .info_content .info_item .info_gender text {
   font-size: 26rpx;
   margin-right: 11rpx;
-  color: #666;
+  color: var(--fontColor);
 }
 .info_wrap .info_content .info_item .info_input {
   width: 60%;
   text-align: right;
-  color: #666;
+  color: var(--fontColor);
 }
 .info_wrap .info_content .info_item input {
   width: 60%;
