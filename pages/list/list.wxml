@@ -6,8 +6,10 @@
             <my-search my-class="search_container" bindInputEvent="handleSearch"></my-search>
             <!-- 个人 企业选择项 -->
             <view class="select_item" wx:if="{{selectCategory}}">
-                <view class="select_same {{params.docCategory===0?'select_active':''}}" bindtap="selectPersonal">个人政策</view>
-                <view class="select_same {{params.docCategory===1?'select_active':''}}" bindtap="selectEnterprise">企业政策</view>
+                <view class="select_same {{params.docCategory===0?'select_active':''}}" bindtap="selectPersonal">个人政策
+                </view>
+                <view class="select_same {{params.docCategory===1?'select_active':''}}" bindtap="selectEnterprise">企业政策
+                </view>
             </view>
             <!-- 选择列表开始 -->
             <view class="select" wx:else>
@@ -20,13 +22,15 @@
         <!-- 头部结束 -->
         <!-- 政策列表开始 -->
         <view class="policy_list">
-            <navigator class="policy_item" wx:for="{{listData}}" wx:key="index" wx:for-item="item1" url="../details/details?id={{item1.id}}">
+            <navigator class="policy_item" wx:for="{{listData}}" wx:key="index" wx:for-item="item1"
+                url="../details/details?id={{item1.id}}&typeId={{item1.datType}}">
                 <view class="policy_title-container">
                     <view class="policy_title">{{item1.docTitle}}</view>
                     <view class="policy_other">
                         <!-- 标签部分 -->
                         <view class="policy_title-introduce">
-                            <view class="policy_from {{item1.tagName?'':'policy_attribute-show'}}">{{item1.tagName}}</view>
+                            <view class="policy_from {{item1.tagName?'':'policy_attribute-show'}}">{{item1.tagName}}
+                            </view>
                             <!-- <view class="policy_attribute-one {{item1.tagName?'':'policy_attribute-show'}}">{{item1.tagName}}</view>
                             <view class="policy_attribute-two {{item1.tagName?'':'policy_attribute-show'}}">{{item1.tagName}}</view> -->
                         </view>
@@ -42,8 +46,8 @@
         <view>
             <view class="popup_content-wrap {{current===1?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{params.subjectId===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
-                        wx:key="id" bindtap="chooseTheme" data-id="{{item.id}}">
+                    <view class="policy_themes {{params.subjectId===item.id?'active_themes':''}}"
+                        wx:for="{{policyThemes}}" wx:key="id" bindtap="chooseTheme" data-id="{{item.id}}">
                         <text class="">{{item.subjectName}}</text>
                     </view>
                     <!-- 占位 -->
@@ -51,6 +55,14 @@
                     <view class="seat_view"></view>
                     <view class="seat_view"></view>
                 </view>
+                <!-- 个人，惠企 -->
+                <view class="policy_type-choose">
+                    <view class="personal_policy {{params.docCategory===0?'active_themes':''}}" bindtap="selectPersonal">
+                        个人政策</view>
+                    <view class="com_policy {{params.docCategory===1?'active_themes':''}}" bindtap="selectEnterprise">惠企政策
+                    </view>
+                </view>
+
                 <!-- 按钮 -->
                 <view class="popup_content-choose">
                     <view class="popup_cancel" bindtap="cancelBtn">取消</view>
@@ -60,10 +72,14 @@
             <!-- 弹出层2 -->
             <view class="popup_content-wrap {{current===2?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{params.policy_grade===item.itemName?'active_themes':''}}" wx:for="{{policyGrade}}"
-                        wx:key="index" bindtap="chooseGrade" data-grade="{{item.itemName}}">
+                    <view class="policy_themes {{params.docGrade===item.itemName?'active_themes':''}}"
+                        wx:for="{{policyGrade}}" wx:key="index" bindtap="chooseGrade" data-grade="{{item.itemName}}">
                         <text>{{item.itemName}}</text>
                     </view>
+                    <!-- 占位 -->
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
                 </view>
                 <view class="popup_content-choose">
                     <view class="popup_cancel" bindtap="cancelBtn">取消</view>
@@ -73,10 +89,14 @@
             <!-- 弹出层3 -->
             <view class="popup_content-wrap {{current===3?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{params.policy_year===item.itemName?'active_themes':''}}" wx:for="{{policyYear}}"
-                        wx:key="index" bindtap="chooseYear" data-year="{{item.itemName}}">
+                    <view class="policy_themes {{params.docYear===item.itemName?'active_themes':''}}"
+                        wx:for="{{policyYear}}" wx:key="index" bindtap="chooseYear" data-year="{{item.itemName}}">
                         <text>{{item.itemName}}</text>
                     </view>
+                    <!-- 占位 -->
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
                 </view>
                 <view class="popup_content-choose">
                     <view class="popup_cancel" bindtap="cancelBtn">取消</view>

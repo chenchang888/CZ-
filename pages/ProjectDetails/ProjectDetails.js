@@ -16,35 +16,39 @@ Page({
   // 获取详情数据
   async getProjectContent() {
     const res = await request({
-      url: "/project/getProDeclareInfo",
+      url: "/subject/PolicyDetail",
       data: {
-        id: this.data.id
+        datPolicyId: this.data.id
       }
     })
     const mes = res.data.data
-    const fileRes = JSON.parse(mes.proApplyDoc)
-    console.log(fileRes);
+    // const fileRes = JSON.parse(mes.proApplyDoc)
     this.setData({
       content: mes,
-      applyMaterials: fileRes
+      // applyMaterials: fileRes
     })
   },
   // 申报材料
+  // handleApply() {
+  //   // const files = this.data.applyMaterials[0].path
+  //   // console.log(files);
+  //   wx.saveFile({
+  //     tempFilePath: this.data.applyMaterials[0].path,
+  //     success (res) {
+  //       const savedFilePath = res.savedFilePath
+  //     }
+  //   })
+  // },
+  // 立即申报
   handleApply() {
-    // const files = this.data.applyMaterials[0].path
-    // console.log(files);
-    wx.saveFile({
-      tempFilePath: this.data.applyMaterials[0].path,
-      success (res) {
-        const savedFilePath = res.savedFilePath
-      }
+    wx.navigateTo({
+      url: '../webUrl/webUrl',
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
     this.setData({ id: options.id })
     this.getProjectContent();
     // 分享

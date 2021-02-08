@@ -30,13 +30,16 @@ page {
 .details_wrap .details_content {
   padding: 18rpx 0;
   border-top: 1rpx solid var(--baseRgb);
-  border-bottom: 1rpx solid var(--baseRgb);
 }
 .details_wrap .details_content rich-text {
   line-height: 48rpx;
   font-size: 34rpx;
   color: #555;
   text-align: justify;
+}
+.details_wrap .details_content .richImg {
+  max-width: 100%;
+  height: auto;
 }
 .details_wrap .details_relation {
   margin-top: 15rpx;

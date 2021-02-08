@@ -69,15 +69,15 @@ page {
 .project_wrap .project_main .project_item {
   position: relative;
   display: flex;
+  padding: 20rpx 0;
   border-radius: 5rpx;
 }
 .project_wrap .project_main .project_item view {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
-  height: 100rpx;
-  padding: 8rpx;
+  padding: 0 10rpx;
   text-align: center;
   font-size: 28rpx;
   color: var(--titleColor);

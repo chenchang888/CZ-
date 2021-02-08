@@ -10,7 +10,6 @@ const showModal = () => {
                     url: "../center/center"
                 })
             } else if (res.cancel) {
-                console.log('用户点击取消')
                 wx.navigateBack({
                     delta: 1
                 })
@@ -20,14 +19,18 @@ const showModal = () => {
 }
 // 检验openId登录
 const authorLogin = () => {
-    wx.checkSession({
-        success() {
-            //session_key 未过期，并且在本生命周期一直有效
-        },
-        fail() {
-            // session_key 已经失效，需要重新执行登录流程
-            showModal();
-        }
+    return new Promise((resolve, reject)=>{
+        wx.checkSession({
+            success(res) {
+                //session_key 未过期，并且在本生命周期一直有效
+                resolve(res)
+            },
+            fail(res) {
+                // session_key 已经失效，需要重新执行登录流程
+                showModal();
+                reject(res)
+            }
+        })
     })
 }
 
@@ -42,7 +45,7 @@ const userInfoLogin = () => {
                     // 已授权获取信息
                     wx.getUserInfo({
                         success(res) {
-                            console.log(res);
+                            // console.log(res);
                             resolve(res)
                         }
                     })
@@ -60,7 +63,6 @@ const loginApi = (e) => {
     // 登录
     wx.login({
         async success(res) {
-            console.log(res);
             if (res.code) {
                 //发起网络请求
                 const val = await request({
@@ -72,6 +74,7 @@ const loginApi = (e) => {
                         nickName
                     }
                 })
+                console.log(val);
                 if (val.data.code === 200) {
                     const openId = val.data.msg
                     wx.setStorageSync("openId", openId)
@@ -104,7 +107,7 @@ const contentSearch = (event) => {
         return
     }
 }
-export { userInfoLogin, showModal, contentSearch, authorLogin, loginApi }
+export { userInfoLogin, showModal, authorLogin, contentSearch, loginApi }
 const formatTime = date => {
     const year = date.getFullYear()
     const month = date.getMonth() + 1

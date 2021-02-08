@@ -1,4 +1,4 @@
-// pages/selectedDetails/selectedDetails.js
+// pages/webUrl/webUrl.js
 Page({
 
   /**
@@ -7,22 +7,12 @@ Page({
   data: {
 
   },
-// 立即申报
-handleApply(){
-  wx.navigateTo({
-    url: '../webUrl/webUrl',
-  })
-},
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
 
-    // 分享
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ['shareAppMessage', 'shareTimeline']
-    })
   },
 
   /**

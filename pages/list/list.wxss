@@ -183,7 +183,7 @@
 .wrap .popup_container .popup_content-wrap .popup_content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-top: 20rpx;
   box-sizing: border-box;
 }
@@ -209,6 +209,22 @@
   height: 0;
   border: none;
   padding: 0;
+}
+.wrap .popup_container .popup_content-wrap .policy_type-choose {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50rpx;
+}
+.wrap .popup_container .popup_content-wrap .policy_type-choose .personal_policy,
+.wrap .popup_container .popup_content-wrap .policy_type-choose .com_policy {
+  padding: 15rpx 30rpx;
+  border-radius: 10rpx;
+  background-color: #f6f6f6;
+  color: #666;
+}
+.wrap .popup_container .popup_content-wrap .policy_type-choose .active_themes {
+  background-color: var(--themeColor);
+  color: #fff;
 }
 .wrap .popup_container .popup_content-wrap .popup_content-choose {
   display: flex;

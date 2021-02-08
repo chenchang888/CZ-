@@ -1,8 +1,9 @@
 <view class="{{pageShow?'collection_wrap':'pageshow'}}">
-    <view class="collection_item" wx:for="{{10}}">
-        <navigator class="collection_info">
-            <view class="collection_date">2020-11-01</view>
-            <view class="collection_title">滁州市********项目</view>
-        </navigator>
-    </view>
+    <navigator class="collection_item" wx:for="{{subscribe}}" url="../ProjectDetails/ProjectDetails?id={{item.id}}">
+        <view class="collection_info">
+            <view class="collection_date">{{item.pubTime}}</view>
+            <view class="collection_title">{{item.proTitle}}</view>
+        </view>
+    </navigator>
+    <view class="noData" wx:if="{{noDataShow}}">暂无数据</view>
 </view>

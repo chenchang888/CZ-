@@ -1,35 +1,11 @@
 import { request } from "../../request/request";
-import { contentSearch } from '../../utils/util';
+const imgUrl = 'https://chuzxcx.ahegov.com/static/'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
-    // image  写死了，不能怪我，原因我也不知道，请找开发网站和查询机的小伙伴
-    imageCompany: [
-      { url: '../../images/policy_08.png' },
-      { url: '../../images/policy_07.png' },
-      { url: '../../images/policy_06.png' },
-      { url: '../../images/policy_05.png' },
-      { url: '../../images/policy_04.png' },
-      { url: '../../images/policy_03.png' },
-      { url: '../../images/policy_02.png' },
-      { url: '../../images/policy_01.png' },
-    ],
-    imagePerson: [
-      { url: '../../images/policy_16.png' },
-      { url: '../../images/policy_15.png' },
-      { url: '../../images/policy_14.png' },
-      { url: '../../images/policy_13.png' },
-      { url: '../../images/policy_12.png' },
-      { url: '../../images/policy_11.png' },
-      { url: '../../images/policy_10.png' },
-      { url: '../../images/policy_09.png' },
-    ],
-
-
     // 搜索框内容
     inputContent: '',
     // 轮播图
@@ -60,7 +36,7 @@ Page({
       return
     }
     this.setData({ inputContent: '' })
-    wx.navigateTo({
+    wx.reLaunch({
       url: '../list/list?content=' + inputContent + ''
     })
   },
@@ -70,33 +46,23 @@ Page({
     const res = await request({
       url: '/wx/banners'
     })
-    console.log(res);
-    
     const swiperImg = res.data.data
-    if (res.statusCode === 200) {
-      this.setData({
-        swiperImg
-      })
-    } else {
-      wx.showToast(
-        {
-          title: '请求错误',
-          icon: 'none',
-          time: 2000
-        }
-      )
-    }
+    // 拼接路径
+    swiperImg.forEach((item) => {
+      item.url = imgUrl + item.url
+    })
+    this.setData({
+      swiperImg
+    })
   },
 
   // 获取最新公告
   async getNewNotice() {
-    var res = await request({ url: "/wx/getNews" })
+    const res = await request({ url: "/wx/getNews" })
     const newNotic = res.data.data
     this.setData({
       newNotic
     })
-    console.log(res);
-    
   },
 
   // 获取企业导航选项
@@ -109,11 +75,8 @@ Page({
       }
     })
     var enterpriseNav = res.data.data
-    const imgUrl = this.data.imageCompany
-    // 合并图片数组
-    // imgUrl.forEach((value, index) => {
-    //   enterpriseNav[index].subjectIcon = value.url
-    // })
+    // 拼接路径
+    enterpriseNav.forEach(value => value.subjectIcon = imgUrl + value.subjectIcon)
     this.setData({ enterpriseNav })
   },
   // 获取个人导航选项
@@ -126,11 +89,7 @@ Page({
       }
     })
     const personalNav = res.data.data
-    const imgUrl = this.data.imagePerson
-    // 合并图片数组
-    // imgUrl.forEach((value, index) => {
-    //   personalNav[index].subjectIcon = value.url
-    // })
+    personalNav.forEach(value => value.subjectIcon = imgUrl + value.subjectIcon)
     this.setData({ personalNav })
   },
 

@@ -1,10 +1,10 @@
 <view class="project_details-wrap">
     <!-- 头部标题开始 -->
     <view class="details_header">
-        <view class="details_title">{{content.proTitle}}</view>
+        <view class="details_title">{{content.docTitle}}</view>
         <view class="details_from">
-            <view class="details_unit">{{content.docGrade}}</view>
-            <view class="details_time">{{content.updateTime}}</view>
+            <view class="details_unit">{{content.docSource}}</view>
+            <!-- <view class="details_time">{{content.docPubDate}}</view> -->
         </view>
     </view>
     <!-- 头部标题结束 -->
@@ -12,31 +12,31 @@
     <view class="details_content">
         <view class="content_title">基本信息</view>
         <view>
-            <text class="content_name" user-select>办理部门:</text><text class="content_details" user-select>{{content.deptName}}</text>
+            <text class="content_name" user-select>政策类别: </text><text class="content_details" user-select>{{content.policyCategory}}</text>
         </view>
         <view>
-            <text class="content_name" user-selectt>申报对象:</text><text class="content_details" user-select>{{content.docType}}</text>
-        </view>
-        <view>
-            <text class="content_name" user-select>政策年度:</text><text class="content_details" user-select>{{content.docYear}}</text>
+            <text class="content_name" user-selectt>政策要点: </text><text class="content_details" user-select>{{content.docDigest}}</text>
         </view>
         <!-- <view>
-            <text class="content_name content_money">金</text><text class="content_name">额:</text><text class="content_details">{{content.money}}</text>
+            <text class="content_name" user-select>政策依据: </text><text class="content_details" user-select>{{content.docYear}}</text>
         </view> -->
         <view>
-            <text class="content_name" user-select>开始时间:</text><text class="content_details" user-select>{{content.pubTime}}</text>
+            <text class="content_name content_money">金</text><text class="content_name">额: </text><text class="content_details">{{content.amountReward}}万元</text>
         </view>
         <view>
-            <text class="content_name" user-select>截至时间:</text><text class="content_details" user-select>{{content.endTime}}</text>
+            <text class="content_name" user-select>享受主体: </text><text class="content_details" user-select>{{content.enjoySubject}}</text>
         </view>
         <view>
-            <text class="content_name" user-select>项目内容:</text><text class="content_details">{{content.proContent}}</text>
+            <text class="content_name" user-select>开始时间: </text><text class="content_details" user-select>{{content.docPubDate}}</text>
+        </view>
+        <view>
+            <text class="content_name" user-select>截至时间: </text><text class="content_details" user-select>{{content.deadline}}</text>
         </view>
         <!-- <view>
             <text class="content_name" user-select>办理时间:</text><text class="content_details" user-select>{{content.handleTime}}</text>
         </view> -->
         <view>
-            <text class="content_name" user-select>咨询电话:</text><text class="content_details" user-select>{{content.docContact}}</text>
+            <text class="content_name" user-select>咨询电话:</text><text class="content_details" user-select>{{content.contact}}</text>
         </view>
         <!-- <view>
             <text class="content_name" user-select>监督电话:</text><text class="content_details" user-select>{{content.supervisePphone}}</text>
@@ -45,14 +45,20 @@
     <!-- 内容区域结束 -->
     <view class="details_footer">
         <view class="apply_materials">
-            <view class="apply_name">申报材料</view>
-            <view class="apply_title" wx:for="{{applyMaterials}}" wx:key="index" bindtap="handleApply">{{item.name}}</view>
+            <view class="apply_name">申报材料：</view>
+            <view class="apply_title">{{content.applyMaterial}}</view>
         </view> 
         <view class="apply_materials">
-            <view class="apply_name">申请流程</view>
-            <view class="apply_title">{{content.proApplyProcess}}</view>
+            <view class="apply_name">申请流程：</view>
+            <view class="apply_title">{{content.applyProcess}}</view>
+        </view> 
+        <view class="apply_materials">
+            <view class="apply_name">网上申报入口：</view>
+            <view class="apply_title">
+                <text>{{content.platformUrl}}</text>
+            </view>
         </view> 
     </view>
     <!-- 底部按钮 -->
-    <button class="apply_btn" bindtap="handleApply">立即申报</button>
+    <!-- <button class="apply_btn" bindtap="handleApply">立即申报</button> -->
 </view>

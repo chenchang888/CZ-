@@ -4,22 +4,22 @@
     <!-- 搜索 -->
     <my-search bindInputEvent="handleSearch"></my-search>
     <!-- 项目查找 -->
-    <view class="lookupBtn" bindtap="lookUpHandle">项目查找</view>
+    <view class="lookupBtn" bindtap="lookUpHandle">条件查找</view>
     <view class="project_conditions">
       <view>申报状态</view>
-      <view>项目标题</view>
-      <view>监管部门</view>
-      <view>发布时间</view>
+      <view>政策标题</view>
+      <view>信息来源</view>
+      <!-- <view>发布时间</view> -->
     </view>
   </view>
   <!-- 头部结束 -->
   <!-- 内容部分开始 -->
   <view class="project_main  {{showPopup?'project_main-popup':''}}">
     <navigator class="project_item" wx:for="{{applyList}}" wx:key="id" url="../ProjectDetails/ProjectDetails?id={{item.id}}">
-      <view class="item_state">距离截止1552天</view>
-      <view class="item_title">{{item.proTitle}}</view>
-      <view class="item_department">{{item.deptName}}</view>
-      <view class="item_time">{{item.pubTime}}</view>
+      <view class="item_state">{{item.endString}}</view>
+      <view class="item_title">{{item.docTitle}}</view>
+      <view class="item_department">{{item.respDept}}</view>
+      <!-- <view class="item_time">{{item.docPubDate}}</view> -->
     </navigator>
   </view>
   <!-- 内容部分结束 -->
@@ -32,7 +32,7 @@
         <view class="popup_header">
           <view class="popup_name">政策主题</view>
           <view class="popup_content">
-            <view class="policy_themes {{params.datSubjectId===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
+            <view class="policy_themes {{params.subjectId===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
               wx:key="id" bindtap="chooseTheme" data-id="{{item.id}}">
               <text class="">{{item.subjectName}}</text>
             </view>
@@ -46,8 +46,8 @@
         <view class="popup_header">
           <view class="popup_name">政策等级</view>
           <view class="popup_content">
-            <view class="policy_themes {{params.docGrade===item.id?'active_themes':''}}" wx:for="{{policyGrade}}"
-              wx:key="id" bindtap="chooseGrade" data-id="{{item.id}}">
+            <view class="policy_themes {{params.docGrade===item.itemName?'active_themes':''}}" wx:for="{{policyGrade}}"
+              wx:key="id" bindtap="chooseGrade" data-itemName="{{item.itemName}}">
               <text class="">{{item.itemName}}</text>
             </view>
             <!-- 占位 -->
@@ -60,8 +60,8 @@
         <view class="popup_header">
           <view class="popup_name">政策年份</view>
           <view class="popup_content">
-            <view class="policy_themes {{params.docYear===item.id?'active_themes':''}}" wx:for="{{policyYear}}"
-              wx:key="id" bindtap="chooseYear" data-id="{{item.id}}">
+            <view class="policy_themes {{params.docYear===item.itemName?'active_themes':''}}" wx:for="{{policyYear}}"
+              wx:key="id" bindtap="chooseYear" data-itemName="{{item.itemName}}">
               <text class="">{{item.itemName}}</text>
             </view>
             <!-- 占位 -->

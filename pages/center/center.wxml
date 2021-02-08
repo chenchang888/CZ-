@@ -3,7 +3,8 @@
     <view class="center_header">
         <view class="personal_picture">
             <image src="{{show?userInfo.avatarUrl:'../../icon/head_portrait.png'}}"></image>
-            <button class="personal_sign" plain size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo" >{{show?userInfo.nickName:'登录'}}</button>
+            <button class="personal_sign" plain size="mini" open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:if="{{!show}}">登录</button>
+            <button class="personal_sign" plain size="mini"wx:else>{{userInfo.nickName}}</button>
         </view>
     </view>
     <!-- 头像区域结束 -->
@@ -30,7 +31,7 @@
         </image>
     </navigator>
     <!-- 我的订阅 -->
-    <navigator class="person_info" url="../declare/declare">
+    <!-- <navigator class="person_info" url="../declare/declare">
         <view class="info_title">
             <view class="info_icon">
                 <image class="" src="../../icon/subscribe.png" />
@@ -40,5 +41,5 @@
         <image class="info_arrow" src="../../icon/arror.png" >
 
         </image>
-    </navigator>
+    </navigator> -->
 </view>

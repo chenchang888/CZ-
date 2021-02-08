@@ -20,7 +20,6 @@ Component({
   methods: {
     // 输入框失去焦点
     inputBlur(e) {
-      console.log(e);
       const { value } = e.detail;
       this.setData({ inputContent: value })
     },

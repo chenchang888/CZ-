@@ -1,5 +1,6 @@
 import { authorLogin } from "../../utils/util"
 const { request } = require("../../request/request")
+const fileUrl = 'http://www.chuzhou.gov.cn/'
 Page({
 
   /**
@@ -8,19 +9,29 @@ Page({
   data: {
     // 文章详情
     detailsContent: {},
-    // 文章id
+    // 用户名
+    user: '',
+    // 详情内容
+    docContent: '',
+    // 基础文章id
+    baseDetailsId: '',
+    // 精选文章id
     detailsId: '',
+    // 是否有附件
+    fileFlag: false,
     // 是否有评论内容
     commentFlag: true,
     // 点赞状态
-    likes: false,
+    praise: 0,
     // 点赞数
-    number: 998,
+    parseNum: 0,
     // 收藏状态
     collection: 0,
     // 是否显示立即申请按钮
     showBtn: false,
-    // 评论输入框内容
+    // 评论区详情
+    commentDetails:[],
+    // 评论内容
     inputContent: '',
     // 输入框自动撑高
     lineHeight: true
@@ -28,20 +39,44 @@ Page({
 
   // 获取政策详情
   async getDetails() {
-    const openid = wx.getStorageSync('openId')
-    // 判断收藏状态
     const res = await request({
-      url: "/subject/PolicyDetails",
+      url: "/subject/ArticleDetail",
       data: {
-        datArticleId: this.data.detailsId,
-        openid: ''
+        datPolicyId: this.data.detailsId,
+        datArticleId: this.data.baseDetailsId
       }
     });
-    console.log(res);
+    let docContent = res.data.data.docContent
+    // 处理富文本图片表格溢出问题，添加img前缀
+    docContent = docContent.replace(/\s(src=")/g, "$1http://www.chuzhou.gov.cn")
+    docContent = docContent.replace(/\<img/gi, '<img class="richImg"')
+    docContent = docContent.replace(/<table[^>]*>/gi, '<table style="width:100%;height:auto;display:block" ')
     this.setData({
+      parseNum: res.data.data.praiseCount,
+      praise: res.data.data.praise,
       collection: res.data.data.collect,
-      detailsContent: res.data.data
+      commentDetails: res.data.data.policyEvalVOList,
+      detailsContent: res.data.data,
+      docContent
     })
+    // 判断文章属于基础还是精选
+    if (res.data.data.typeId) {
+      this.setData({
+        detailsId: res.data.data.id,
+        showBtn: true
+      })
+    } else {
+      this.setData({
+        baseDetailsId: res.data.data.id
+      })
+    }
+    // 判断是否有附件
+    if (res.data.data.originalFile) {
+      this.setData({ fileFlag: true })
+    } else {
+      this.setData({ fileFlag: false })
+    }
+    // 判断是否有用户评论
     if (res.data.data.policyEvalVOList) {
       this.setData({ commentFlag: false })
       return
@@ -68,54 +103,79 @@ Page({
 
   // 点赞
   async likesHandle() {
-    // authorLogin()
-    // if (this.data.likes) {
-    //   this.setData({ number: this.data.number - 1 })
-    // } else {
-    //   this.setData({ number: this.data.number + 1 })
-    // }
-    // const res = await request({
-    //   // url: "/subject/praise",
-    //   // method:'post',
-    //   // data: {
-    //   //   openId:''
-    //   // }
-    // })
-    // console.log(res);
-    // this.setData({
-    //   likes: !this.data.likes,
-    // })
+    // 判断用户是否登录
+    const { errMsg } = await authorLogin()
+    if (errMsg === "checkSession:ok") {
+      const res = await request({
+        url: "/subject/praise",
+        method: 'post',
+        data: {
+          datPolicyId: this.data.detailsId,
+          datArticleId: this.data.baseDetailsId
+        }
+      })
+      // 点赞封装成函数
+      const praseFlag = () => {
+        if (this.data.praise) {
+          wx.showToast({
+            title: '已取消',
+            icon: "none",
+            mask: true,
+            duration: 2000
+          })
+          this.setData({
+            praise: 0,
+            parseNum: this.data.parseNum - 1
+          })
+        } else {
+          wx.showToast({
+            title: '点赞成功',
+            icon: "none",
+            mask: true,
+            duration: 2000
+          })
+          this.setData({
+            praise: 1,
+            parseNum: this.data.parseNum + 1
+          })
+        }
+      }
+      praseFlag()
+    }
   },
 
   // 收藏
   async collectHandle() {
-    authorLogin()
-    const openId = wx.getStorageSync('openId')
-    const collectList = await request({ 
-      url: "/subject/Collection",
-      data: this.data.detailsId
-    })
-    const index = collectList.findIndex(item => {
-      item === this.data.detailsId
-    });
-    if (index === -1) {
-      collectList.push(this.data.detailsId)
-      wx.showToast({
-        title: '已收藏',
-        icon: 'success',
-        duration: 2000,
-        mask: true
+    // 判断用户是否登录
+    const { errMsg } = await authorLogin()
+    if (errMsg === "checkSession:ok") {
+      // 请求
+      const res = await request({
+        url: "/subject/Collection",
+        method: "post",
+        data: {
+          datPolicyId: this.data.detailsId,
+          datArticleId: this.data.baseDetailsId
+        }
       })
-    } else {
-      collectList.splice(index, 1)
-      wx.showToast({
-        title: '已取消收藏',
-        icon: 'none',
-        duration: 2000,
-        mask: true
-      })
+      if (res.data.msg === "取消收藏成功") {
+        this.setData({ collection: 0 })
+        wx.showToast({
+          title: '已取消收藏',
+          icon: 'none',
+          duration: 2000,
+          mask: true
+        })
+      } else {
+        this.setData({ collection: 1 })
+        wx.showToast({
+          title: '已收藏',
+          icon: 'success',
+          duration: 2000,
+          mask: true
+        })
+      }
     }
-    this.setData({ collection: !this.data.collection })
   },
 
   // 失去焦点获取输入框评论内容
@@ -140,36 +200,52 @@ Page({
   },
   // 评论提交
   async commenHandle() {
-    if (this.data.inputContent.trim() === '') {
-      wx.showToast({
-        title: '内容不能为空',
-        icon: 'none',
-        duration: 2000
+    // 判断用户是否登录
+    const { errMsg } = await authorLogin()
+    if (errMsg === "checkSession:ok") {
+      if (this.data.inputContent.trim() === '') {
+        wx.showToast({
+          title: '内容不能为空',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      const res = await request({
+        url: "/subject/saveComment",
+        method: "POST",
+        data: {
+          datPolicyId: this.data.detailsId,
+          datArticleId: this.data.baseDetailsId,
+          user: this.data.user,
+          content: this.data.inputContent,
+        }
       })
-      return
+      wx.showToast({
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000
+      })
+      this.setData({ inputContent: '' })
     }
-    // const res = await request({
-    //   url: "/subject/saveComment",
-    //   data: {
-    //     Id: '',
-    //     Content: '',
-    //     datArticleId:'',
-    //     openId: ''
-    //   }
-    // })
-    // console.log(res);
-    wx.showToast({
-      title: '提交成功',
-      icon: 'success',
-      duration: 2000
-    })
-    this.setData({ inputContent: '' })
   },
-
+  // 获取用户信息
+  async getUserMes() {
+    const that = this
+    const { errMsg } = await authorLogin()
+    if (errMsg === "checkSession:ok") {
+      wx.getUserInfo({
+        success: function (res) {
+          const user = res.userInfo.nickName
+          that.setData({ user })
+        }
+      })
+    }
+  },
   // 立即申请
   handleApply() {
     wx.navigateTo({
-      url: '/pages/webView/webView'
+      url: '/pages/webUrl/webUrl'
     })
   },
 
@@ -177,8 +253,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
-    this.setData({ detailsId: options.id })
+    if (options.typeId === "1") {
+      this.setData({ detailsId: options.id })
+    } else {
+      this.setData({ baseDetailsId: options.id })
+    }
+    this.getUserMes()
     // 分享
     wx.showShareMenu({
       withShareTicket: true,

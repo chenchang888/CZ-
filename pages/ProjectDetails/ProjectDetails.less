@@ -1,45 +1,66 @@
 @import "../../styles/background/background.less";
 @import "../../styles/detailsHeader/detailsHeader.less";
+
+.details_title{
+  text-align: center!important;
+}
+.details_from {
+  justify-content: center!important;
+  .details_unit{
+    margin: 0!important;
+  }
+}
+
 .project_details-wrap {
   padding: 20rpx;
+
   //   内容
   .details_content {
     padding: 20rpx 0;
     border-top: 1rpx solid var(--baseRgb);
     border-bottom: 1rpx solid var(--baseRgb);
+
     view {
       margin-bottom: 10rpx;
     }
+
     .content_title {
       line-height: 48rpx;
       font-size: 36rpx;
       color: #222;
     }
+
     .content_name {
       line-height: 48rpx;
       font-size: 34rpx;
       color: var(--titleColor);
     }
+
     .content_details {
       line-height: 48rpx;
       font-size: 30rpx;
       color: var(--fontColor);
     }
+
     // 金额
     .content_money {
       letter-spacing: 70rpx;
     }
   }
+
   //   底部
   .details_footer {
-    padding: 15rpx 0;
+    padding: 15rpx 0 50rpx;
     border-bottom: 1rpx solid var(--baseRgb);
+
     .apply_materials {
       margin-top: 30rpx;
+
       .apply_name {
         font-size: 34rpx;
         color: var(--themeColor);
       }
+
       .apply_title {
         margin-top: 10rpx;
         line-height: 39rpx;
@@ -48,9 +69,13 @@
         // text-overflow: ellipsis;
         font-size: 30rpx;
         color: var(--titleColor);
+        text{
+          word-wrap: break-word;
+        }
       }
     }
   }
+
   .apply_btn {
     width: 460rpx;
     line-height: 60rpx;

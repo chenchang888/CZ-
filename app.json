@@ -11,12 +11,12 @@
     "pages/details/details",
     "pages/selectedDetails/selectedDetails",
     "pages/ProjectDetails/ProjectDetails",
-    "pages/webView/webView"
+    "pages/webUrl/webUrl"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "政务公开",
+    "navigationBarTitleText": "滁州市政策直通车",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
@@ -29,13 +29,13 @@
       "iconPath":"./icon/index.png",
       "selectedIconPath":"./icon/index_active.png"
     }, {
-      "pagePath": "pages/project/project",
-      "text": "项目申报",
+      "pagePath": "pages/list/list",
+      "text": "基础政策",
       "iconPath":"./icon/apply.png",
       "selectedIconPath":"./icon/apply_active.png"
     }, {
-      "pagePath": "pages/selectedPolicies/selectedPolicies",
-      "text": "精选政策",
+      "pagePath": "pages/project/project",
+      "text": "奖补政策",
       "iconPath":"./icon/recommend.png",
       "selectedIconPath":"./icon/recommend_active.png"
     }, {

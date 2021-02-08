@@ -21,23 +21,27 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
+    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
+    "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.13.1",
-  "appid": "wx1eee0cdca998a30c",
+  "appid": "wxf2f1aeaef66bb7c5",
   "projectname": "CZ",
   "debugOptions": {
     "hidedInDevtools": []
@@ -115,7 +119,7 @@
         {
           "name": "详情页",
           "pathName": "pages/details/details",
-          "query": "id= 1640",
+          "query": "id=1627",
           "scene": null
         },
         {
@@ -151,6 +155,12 @@
         {
           "name": "pages/webView/webView",
           "pathName": "pages/webView/webView",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/webUrl/webUrl",
+          "pathName": "pages/webUrl/webUrl",
           "query": "",
           "scene": null
         }

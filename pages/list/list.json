@@ -2,5 +2,5 @@
   "usingComponents": {
     "my-search":"../../components/my-search/my-search"
   },
-  "navigationBarTitleText": "政策主题"
+  "navigationBarTitleText": "基础政策"
 }

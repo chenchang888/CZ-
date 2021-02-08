@@ -18,13 +18,13 @@ Page({
     params: {
       phone: '',
       name: '',
-      address: ''
+      email: ''
     },
     // 信息
     personInfo: {
       phone: '输入手机号码',
       name: '输入真实姓名',
-      address: '输入邮箱地址'
+      email: '输入邮箱地址'
     },
     // 根据是否登录显示页面
     pageShow: false,
@@ -39,25 +39,37 @@ Page({
   // 检验登录状态
   async getAuthSetting() {
     const that = this
-    authorLogin()
-    const { userInfo } = await userInfoLogin()
-    that.setData({
-      userInfo,
-      pageShow: true
-    })
-    this.getUserIfo();
+    const mes = await authorLogin()
+    const { errMsg, userInfo } = await userInfoLogin()
+    if (errMsg === "getUserInfo:ok" && mes.errMsg === "checkSession:ok") {
+      that.setData({
+        userInfo,
+        pageShow: true
+      })
+      this.getUserIfo();
+    }
   },
 
   // 获取个人资料
   async getUserIfo() {
-    const token = wx.getStorageSync('token')
     const res = await request({
-      url: "/personal/getUser",
-      header:{
-        "Authorization": token
-      }
+      url: "/personal/getUser"
     })
-    console.log(res);
+    if (res.data.data.name) {
+      this.setData({
+        "personInfo.name": res.data.data.name
+      })
+    }
+    if (res.data.data.phone) {
+      this.setData({
+        "personInfo.phone": res.data.data.phone
+      })
+    }
+    if (res.data.data.email) {
+      this.setData({
+        "personInfo.email": res.data.data.email
+      })
+    }
   },
 
   // 点击输入手机号
@@ -111,36 +123,30 @@ Page({
     const { value } = e.detail
     if (value.trim() === '') {
       this.setData({
-        "personInfo.address": this.data.personInfo.address
+        "personInfo.email": this.data.personInfo.email
       })
     } else {
       this.setData({
-        "personInfo.address": value
+        "personInfo.email": value
       })
     }
     this.setData({
       addressInput: true,
-      "params.address": value
+      "params.email": value
     })
   },
   // 保存
   async preservation() {
-    const token = wx.getStorageSync('token')
+    console.log(this.data.personInfo);
     const res = await request({
       url: "/personal/saveUser",
-      data: this.data.params,
-      header: {
-        'Authorization': token
-      },
+      data: this.data.personInfo
     })
-    console.log(res);
-    if(res.data.sode===200){
-      wx.showToast({
-        title: '保存成功',
-        icon: 'success',
-        duration: 2000
-      })
-    }
+    wx.showToast({
+      title: '保存成功',
+      icon: 'success',
+      duration: 2000
+    })
   },
 
   /**

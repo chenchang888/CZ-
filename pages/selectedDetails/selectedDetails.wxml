@@ -17,5 +17,5 @@
      </view>
      <!-- 内容区域结束 -->
      <!-- 底部 -->
-     <button class="apply_btn">立即申请</button>
+     <!-- <button class="apply_btn" bindtap="handleApply">立即申请</button> -->
  </view>

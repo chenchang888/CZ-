@@ -16,17 +16,17 @@
             <view class="info_title">手机号：</view>
             <view class="info_input" wx:if="{{phoneInput}}" bindtap="getPhoneNumber">{{personInfo.phone}}
             </view>
-            <input class="" wx:else value="" maxlength='16' type="number" bindblur="losePhoneFocus" focus="true"></input>
+            <input type="number" value="{{personInfo.phone}}" wx:else maxlength='16' type="number" bindblur="losePhoneFocus" focus="true"></input>
         </view>
         <view class="info_item">
             <view class="info_title">真实姓名：</view>
             <view class="info_input" wx:if="{{nameInput}}" bindtap="getName">{{personInfo.name}}</view>
-            <input class="" wx:else value="" maxlength='8' type="text" bindblur="loseNameFocus" focus="true"></input>
+            <input type="text" wx:else value="{{personInfo.name}}" maxlength='8' type="text" bindblur="loseNameFocus" focus="true"></input>
         </view>
         <view class="info_item">
             <view class="info_title">邮箱地址：</view>
-            <view class="info_input" wx:if="{{addressInput}}" bindtap="getAddress">{{personInfo.address}}</view>
-            <input class="" wx:else value="" maxlength='19' type="text" bindblur="loseAddressFocus" focus="true"></input>
+            <view class="info_input" wx:if="{{addressInput}}" bindtap="getAddress">{{personInfo.email}}</view>
+            <input type="text" wx:else value="{{personInfo.email}}" maxlength='19' type="text" bindblur="loseAddressFocus" focus="true"></input>
         </view>
     </view>
     <button class="info_preservation" type="primary" bindtap="preservation">保存</button>

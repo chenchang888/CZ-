@@ -8,7 +8,7 @@ Page({
   data: {
     // 搜索内容
     searchContent: '',
-    
+
     // 选择个人企业状态
     selsecState: 0,
 
@@ -23,7 +23,7 @@ Page({
     selectList: [
       {
         id: 1,
-        title: '政策主题'
+        title: '政策类别'
       },
       {
         id: 2,
@@ -55,30 +55,24 @@ Page({
     // 选择政策年份状态
     activeYear: '',
 
-
+    showAll: true,
     // 请求参数
     params: {
       docTitle: '',
       subjectId: '',
-      policy_grade: '',
-      policy_year: '',
-      pagenum: 1,
-      pagesize: 8,
+      docGrade: '',
+      docYear: '',
+      current: 1,
+      size: 10,
     },
   },
 
   // 请求列表数据
   async getPolicyList() {
-    console.log(this.data.params);
-    wx.showLoading({
-      title: "加载中",
-      mask: true
-    });
     const res = await request({
       url: "/wx/getPolicyData",
       data: this.data.params
     })
-    console.log(res);
     // 合并请求页数据
     const resList = res.data.data.records
     const listData = this.data.listData
@@ -87,7 +81,6 @@ Page({
       listData,
       total: res.data.data.total
     })
-    wx.hideLoading()
   },
 
   // 获取政策选择项
@@ -95,8 +88,7 @@ Page({
     const res = await request({
       url: "/wx/getClassify",
       data: {
-        // subjectType: this.data.params.docCategory,
-        num: 0
+        subjectType: 1
       }
     })
     this.setData({
@@ -108,7 +100,6 @@ Page({
 
   // 当前列表页搜索
   handleSearch(e) {
-    console.log(e);
     const inputContent = e.detail
     if (inputContent.trim() === '') {
       wx.showToast({
@@ -123,10 +114,24 @@ Page({
     })
     this.getPolicyList()
   },
-
+  // 显示所有
+  getShowAll() {
+    this.setData({
+      listData: [],
+      current: 0,
+      params: {
+        docTitle: '',
+        subjectId: '',
+        docGrade: '',
+        docYear: '',
+        current: 1,
+        size: 10,
+      },
+    })
+    this.getPolicyList()
+  },
   // 选择政策主题类型
   chooseTheme(e) {
-    console.log(e);
     const { id } = e.currentTarget.dataset;
     if (this.data.params.subjectId === id) {
       this.setData({ "params.subjectId": '' })
@@ -136,24 +141,22 @@ Page({
   },
   // 选择政策等级
   chooseGrade(e) {
-    console.log(e);
     const { grade } = e.currentTarget.dataset;
-    if (this.data.params.policy_grade === grade) {
-      this.setData({ "params.policy_grade": '' })
+    if (this.data.params.docGrade === grade) {
+      this.setData({ "params.docGrade": '' })
       return
     }
-    this.setData({ "params.policy_grade": grade })
+    this.setData({ "params.docGrade": grade })
   },
   // 选择政策年份
   chooseYear(e) {
-    console.log(e);
     const { year } = e.currentTarget.dataset;
-    if (this.data.params.policy_year === year) {
-      this.setData({ "params.policy_year": '' })
+    if (this.data.params.docYear === year) {
+      this.setData({ "params.docYear": '' })
       return
     }
     this.setData({
-      "params.policy_year": year,
+      "params.docYear": year,
     })
   },
 
@@ -161,7 +164,8 @@ Page({
   async determineBtn() {
     this.setData({
       current: 0,
-      // listData: []
+      listData: [],
+      "params.current": 1
     })
     this.getPolicyList()
   },
@@ -173,7 +177,7 @@ Page({
   // 上拉加载下一页数据
   loadNextPage() {
     // 判断当前页是否大于总页数
-    if (this.data.params.pagenum > this.data.total / this.data.params.pagesize) {
+    if (this.data.params.current > this.data.total / this.data.params.size) {
       wx.showToast({
         title: '已经到底了',
         icon: 'none',
@@ -181,15 +185,13 @@ Page({
       })
       return
     }
-    this.data.params.pagenum++
+    this.data.params.current++
     this.getPolicyList()
   },
 
   // 显示弹出层
   showPopup(e) {
-    // console.log(e);
     const { id } = e.currentTarget.dataset
-    // console.log(id);
     // 当再次点击当前状态取消弹出层
     if (this.data.current === id) {
       this.setData({
@@ -206,10 +208,8 @@ Page({
 
   // 关闭弹出层
   closePopur(e) {
-    console.log(e);
     this.setData({ current: 0 });
   },
-
 
   /**
    * 生命周期函数--监听页面加载

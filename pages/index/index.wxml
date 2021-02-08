@@ -12,11 +12,11 @@
 		<!-- 搜索框结束 -->
 		<!-- 轮播图开始 -->
 		<view class="swiper_container">
-			<swiper class="swiper_group" autoplay="true" indicator-dots="true" interval="3000" circular="true"
+			<swiper class="swiper_group" autoplay="true" indicator-dots="true" interval="5000" circular="true"
 				indicator-active-color="#015BB5">
-				<navigator class="swiper_group-item" wx:for="{{swiperImg}}" wx:key="index" url="../details/details?id={{newNotic.id}}">
+				<navigator class="swiper_group-item" wx:for="{{swiperImg}}" wx:key="index" url="">
 					<swiper-item>
-						<image class="" src="{{item.filePath}}" lazy-load="false" />
+						<image class="" src="{{item.url}}" lazy-load="false" />
 					</swiper-item>
 				</navigator>
 			</swiper>
@@ -39,12 +39,12 @@
 					<view class="policy_line"></view>
 					<text>惠企政策</text>
 				</view>
-				<navigator class="policy_more" url="../list/list?typeId=1" hover-class="none">
+				<navigator class="policy_more" open-type="reLaunch" url="../list/list?typeId=1" hover-class="none">
 					<text>更多></text>
 				</navigator>
 			</view>
 			<view class="policy_list">
-				<navigator class="policy_list-item" wx:for="{{enterpriseNav}}" wx:key="id" url="../list/list?typeId={{item.subjectType}}&itemId={{item.id}}" hover-class="none">
+				<navigator class="policy_list-item"  open-type="reLaunch" wx:for="{{enterpriseNav}}" wx:key="id" url="../list/list?typeId={{item.subjectType}}&itemId={{item.id}}" hover-class="none">
 					<image src="{{item.subjectIcon}}" lazy-load="false" />
 					<view>{{item.subjectName}}</view>
 				</navigator>
@@ -56,16 +56,15 @@
 					<view class="policy_line"></view>
 					<text>个人政策</text>
 				</view>
-				<navigator class="policy_more" url="../list/list?typeId=0" hover-class="none">
+				<navigator class="policy_more" open-type="reLaunch" url="../list/list?typeId=0" hover-class="none">
 					<text>更多></text>
 				</navigator>
 			</view>
 			<view class="policy_list">
-				<navigator class="policy_list-item" wx:for="{{personalNav}}" wx:key="id" url="../list/list?typeId={{item.subjectType}}&itemId={{item.id}}" hover-class="none">
+				<navigator class="policy_list-item" open-type="reLaunch" wx:for="{{personalNav}}" wx:key="id" url="../list/list?typeId={{item.subjectType}}&itemId={{item.id}}" hover-class="none">
 					<image src="{{item.subjectIcon}}" lazy-load="false" />
 					<view>{{item.subjectName}}</view>
 				</navigator>
-				
 			</view>
 		</view>
 	</view>

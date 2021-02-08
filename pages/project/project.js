@@ -1,4 +1,3 @@
-import { contentSearch } from '../../utils/util'
 import { request } from "../../request/request"
 Page({
 
@@ -9,13 +8,14 @@ Page({
 
     // 请求参数
     params: {
-      proTitle: '',
-      datSubjectId: '',
+      docTitle: '',
+      subjectId: '',
       docGrade: '',
       docYear: '',
-      pagenum: 1,
-      pagesize: 8,
+      current: 1,
+      size: 10,
     },
+    pages: 0,
 
     // 显示列表弹出层
     showPopup: false,
@@ -40,18 +40,32 @@ Page({
 
   // 请求项目列表
   async getProject() {
-    wx.showLoading({
-      title: "加载中",
-      mask: true
-    });
     const res = await request({
-      url: "/project/list",
+      url: "/wx/getPolicyData",
       data: this.data.params
     })
+    // 合并请求页数据
+    const resList = res.data.data.records
+    const applyList = this.data.applyList
+    Array.prototype.push.apply(applyList, resList)
     this.setData({
-      applyList: res.data.data.records
+      applyList,
+      pages: res.data.data.pages
     })
-    wx.hideLoading()
+  },
+  // 上拉加载下一页数据
+  loadNextPage() {
+    // 判断当前页是否大于总页数
+    if (this.data.params.current >= this.data.pages) {
+      wx.showToast({
+        title: '已经到底了',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    this.data.params.current++
+    this.getProject()
   },
 
   // 请求政策条件选择项
@@ -73,17 +87,18 @@ Page({
   // 搜索
   async handleSearch(e) {
     const value = e.detail
+    if (value.trim() === '') {
+      wx.showToast({
+        title: '搜索内容不能为空',
+        icon: 'none'
+      })
+      return
+    }
     this.setData({
-      "params.proTitle": e.detail
+      "params.docTitle": e.detail,
+      "params.current": 1,
+      applyList: []
     })
-    // if (e.detail.trim() === '') {
-    //   wx.showToast({
-    //     title: '搜索内容不能为空',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    //   return
-    // }
     this.getProject()
   },
   // 项目查找
@@ -92,48 +107,47 @@ Page({
   },
   // 政策主题选择
   chooseTheme(e) {
-    if (this.data.params.datSubjectId === e.currentTarget.dataset.id) {
+    if (this.data.params.subjectId === e.currentTarget.dataset.id) {
       this.setData({
-        "params.datSubjectId": ''
+        "params.subjectId": ''
       })
       return
     }
     this.setData({
-      "params.datSubjectId": e.currentTarget.dataset.id
+      "params.subjectId": e.currentTarget.dataset.id
     })
   },
   // 政策等级选择
   chooseGrade(e) {
-    if (this.data.params.docGrade === e.currentTarget.dataset.id) {
+    if (this.data.params.docGrade === e.currentTarget.dataset.itemname) {
       this.setData({
         "params.docGrade": ''
       })
       return
     }
     this.setData({
-      "params.docGrade": e.currentTarget.dataset.id
+      "params.docGrade": e.currentTarget.dataset.itemname
     })
   },
   // 政策年份选择
   chooseYear(e) {
-    if (this.data.params.docYear === e.currentTarget.dataset.id) {
+    if (this.data.params.docYear === e.currentTarget.dataset.itemname) {
       this.setData({
         "params.docYear": ''
       })
       return
     }
     this.setData({
-      "params.docYear": e.currentTarget.dataset.id
+      "params.docYear": e.currentTarget.dataset.itemname
     })
   },
   // 提交确定
   determineBtn() {
-    // const res = await request({
-    //   url:"",
-    //   data:{}
-    // })
-    // console.log(res);
-    this.setData({ showPopup: false })
+    this.setData({
+      showPopup: false,
+      "params.current": 1,
+      applyList: []
+    })
     this.getProject();
   },
   // 取消弹出层
@@ -193,7 +207,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadNextPage()
   },
 
   /**

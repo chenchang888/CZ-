@@ -15,7 +15,7 @@
         <!-- 头部结束 -->
         <!-- 政策列表开始 -->
         <view class="policy_list">
-            <navigator class="policy_item" wx:for="{{listData}}" wx:key="index" wx:for-item="item1" url="../details/details?id={{item1.id}}">
+            <navigator class="policy_item" wx:for="{{listData}}" wx:key="index" wx:for-item="item1" url="../details/details?id={{item1.id}}&typeId={{item1.datType}}">
                 <view class="policy_title-container">
                     <view class="policy_title">{{item1.docTitle}}</view>
                     <view class="policy_other">
@@ -37,7 +37,7 @@
         <view>
             <view class="popup_content-wrap {{current===1?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{activeTheme===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
+                    <view class="policy_themes {{params.subjectId===item.id?'active_themes':''}}" wx:for="{{policyThemes}}"
                         wx:key="id" bindtap="chooseTheme" data-id="{{item.id}}">
                         <text class="">{{item.subjectName}}</text>
                     </view>
@@ -45,6 +45,10 @@
                     <view class="seat_view"></view>
                     <view class="seat_view"></view>
                     <view class="seat_view"></view>
+                </view>
+                <view class="policy_type-choose">
+                    <view class="personal_policy {{showAll?'active_themes':''}}" bindtap="getShowAll">
+                        显示全部</view>
                 </view>
                 <!-- 按钮 -->
                 <view class="popup_content-choose">
@@ -55,10 +59,14 @@
             <!-- 弹出层2 -->
             <view class="popup_content-wrap {{current===2?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{activeGrade===item.itemName?'active_themes':''}}" wx:for="{{policyGrade}}"
+                    <view class="policy_themes {{params.docGrade===item.itemName?'active_themes':''}}" wx:for="{{policyGrade}}"
                         wx:key="index" bindtap="chooseGrade" data-grade="{{item.itemName}}">
                         <text>{{item.itemName}}</text>
                     </view>
+                    <!-- 占位 -->
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
                 </view>
                 <view class="popup_content-choose">
                     <view class="popup_cancel" bindtap="cancelBtn">取消</view>
@@ -68,10 +76,14 @@
             <!-- 弹出层3 -->
             <view class="popup_content-wrap {{current===3?'':'popup_display'}}  " catchtap>
                 <view class="popup_content">
-                    <view class="policy_themes {{activeYear===item.itemName?'active_themes':''}}" wx:for="{{policyYear}}"
+                    <view class="policy_themes {{params.docYear===item.itemName?'active_themes':''}}" wx:for="{{policyYear}}"
                         wx:key="index" bindtap="chooseYear" data-year="{{item.itemName}}">
                         <text>{{item.itemName}}</text>
                     </view>
+                    <!-- 占位 -->
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
+                    <view class="seat_view"></view>
                 </view>
                 <view class="popup_content-choose">
                     <view class="popup_cancel" bindtap="cancelBtn">取消</view>

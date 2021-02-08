@@ -3,18 +3,20 @@
     <view class="details_header">
         <view class="details_title">{{detailsContent.docTitle}}</view>
         <view class="details_from">
-            <view class="details_unit">{{detailsContent.docPubUnit}}</view>
+            <view class="details_unit">
+                <rich-text nodes="{{detailsContent.docPubUnit}}"></rich-text>
+            </view>
             <view class="details_time">{{detailsContent.docPubDate}}</view>
         </view>
     </view>
     <!-- 头部标题结束 -->
     <!-- 内容 -->
     <view class="details_content">
-        <rich-text nodes="{{detailsContent.docContent}}"></rich-text>
+        <rich-text nodes="{{docContent}}"></rich-text>
     </view>
     <!-- 政策附件 政策解读 开始 -->
-    <view class="details_relation">
-        <view class="details_enclosure">
+    <!-- <view class="details_relation" >
+        <view class="details_enclosure" wx:if="{{fileFlag}}">
             <view class="enclosure_font">附件</view>
             <view class="enclosure_title" bindap="handleFiles">
                 1.市级应急广播项目、县级应急广播及大喇叭系统项目
@@ -29,15 +31,15 @@
                 滁州市人民政府办公室关于印发滁州市扎实推进应急广播体系建设实施方案的通知
             </navigator>
         </view>
-    </view>
+    </view> -->
     <!-- 政策附件 政策解读 结束 -->
     <!-- 点赞分享开始 -->
     <view class="like_sharing">
         <view class="like">
             <view class="like_img" bindtap="likesHandle">
-                <image src="{{likes?'../../icon/thumbsUp_active.png':'../../icon/thumbsUp.png'}}" />
+                <image src="{{praise?'../../icon/thumbsUp_active.png':'../../icon/thumbsUp.png'}}" />
             </view>
-            <view class="like_number {{likes?'like_color':''}}">{{detailsContent.praiseCount}}</view>
+            <view class="like_number {{praise?'like_color':''}}">{{parseNum}}</view>
         </view>
         <view>
             <button class="like" size="mini" plain open-type="share">
@@ -50,27 +52,29 @@
     </view>
     <!-- 点赞分享结束 -->
     <!-- 立即申报按钮开始 -->
-    <button class="apply_btn {{showBtn?'':'show'}}" bindtap="handleApply">立即申请</button>
+    <!-- <button class="apply_btn {{showBtn?'':'show'}}" bindtap="handleApply">立即申请</button> -->
     <!-- 立即申报按钮结束 -->
     <!-- 评价内容开始 -->
     <view class="details_comment">
         <view class="comment_font">评价</view>
+        <!-- 有评价  -->
+        <view class="comment_item" wx:if="{{commentDetails.length}}">
+            <view wx:for="{{commentDetails}}" wx:key="id">
+                <view class="comment_name">
+                    <view class="personal_img">
+                        <image src="../../icon/user.png" />
+                    </view>
+                    <view class="info_name">{{item.user}}</view>
+                </view>
+                <view class="comment_content">{{item.content}}</view>
+            </view>
+        </view>
         <!-- 无评价 -->
-        <view class="comment_container" wx:if="{{commentFlag}}">
+        <view class="comment_container" wx:else>
             <view class="comment_img">
                 <image src="../../icon/news_big.png" />
             </view>
             <view class="comment_tips">暂无观点 快来发表观点</view>
-        </view>
-        <!-- 有评价  -->
-        <view class="comment_item" wx:else>
-            <view class="comment_name">
-                <view class="personal_img">
-                    <image src="../../icon/user.png" />
-                </view>
-                <view class="info_name">王大发</view>
-            </view>
-            <view class="comment_content">滁州市对于应急广播的建设及时到位，上传下达，不仅准确地传达了上级对百姓安全的关心，更有利于促进老百姓自身的安全意识提高，为咱们的人民政府点赞。</view>
         </view>
     </view>
     <!-- 评价内容结束 -->
@@ -78,8 +82,9 @@
     <view class="details_bottom">
         <!-- 评论 -->
         <view class="comment_input">
-            <textarea value="" type="text" adjust-position  cursor-spacing="40rpx" maxlength="500" auto-height="{{lineHeight}}" bindblur="getInputContent" bindlinechange="lineChange" placeholder-style="text-align:center"
-                placeholder="欢迎您写出精彩点评">
+            <textarea value="{{inputContent}}" type="text" adjust-position cursor-spacing="40rpx" maxlength="500"
+                auto-height="{{lineHeight}}" bindblur="getInputContent" bindlinechange="lineChange"
+                placeholder-style="text-align:center" placeholder="欢迎您写出精彩点评">
             </textarea>
         </view>
         <view class="bottom_right">

@@ -1,5 +1,4 @@
 import { request } from '../../request/request';
-import { contentSearch } from '../../utils/util'
 Page({
 
   /**
@@ -56,38 +55,32 @@ Page({
     // 选择政策年份状态
     activeYear: '',
 
-
     // 请求参数
     params: {
-      docCategory: '',
+      docCategory: '',//0为个人，1为惠企
       docTitle: '',
       subjectId: '',
-      policy_grade: '',
-      policy_year: '',
-      pagenum: 1,
-      pagesize: 8,
+      docGrade: '',
+      docYear: '',
+      current: 1,
+      size: 8,
     },
   },
 
   // 请求列表数据
   async getPolicyList() {
-    wx.showLoading({
-      title: "加载中",
-      mask: true
-    });
     const res = await request({
-      url: "/wx/search",
+      url: "/wx/getArticleData",
       data: this.data.params
     })
     // 合并请求页数据
     const resList = res.data.data.records
     const listData = this.data.listData
-    const listNum = Array.prototype.push.apply(listData, resList)
+    Array.prototype.push.apply(listData, resList)
     this.setData({
       listData,
       total: res.data.data.total
     })
-    wx.hideLoading()
   },
 
   // 请求政策条件选择项
@@ -109,21 +102,21 @@ Page({
   // 当前列表页搜索
   handleSearch(e) {
     const inputContent = e.detail
-    // if (inputContent.trim() === '') {
-    //   wx.showToast({
-    //     title: '搜索内容不能为空',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    //   return
-    // }
+    if (inputContent.trim() === '') {
+      wx.showToast({
+        title: '搜索内容不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     this.setData({
       listData: [],
-      "params.docTitle": inputContent
+      "params.docTitle": inputContent,
+      "params.current": 1
     })
     this.getPolicyList()
   },
-
   // 选择政策主题类型
   chooseTheme(e) {
     const { id } = e.currentTarget.dataset;
@@ -133,26 +126,26 @@ Page({
     }
     this.setData({
       "params.subjectId": id
-     })
+    })
   },
   // 选择政策等级
   chooseGrade(e) {
     const { grade } = e.currentTarget.dataset;
-    if (this.data.params.policy_grade === grade) {
-      this.setData({ "params.policy_grade": '' })
+    if (this.data.params.docGrade === grade) {
+      this.setData({ "params.docGrade": '' })
       return
     }
-    this.setData({ "params.policy_grade": grade })
+    this.setData({ "params.docGrade": grade })
   },
   // 选择政策年份
   chooseYear(e) {
     const { year } = e.currentTarget.dataset;
-    if (this.data.params.policy_year === year) {
-      this.setData({ "params.policy_year": '' })
+    if (this.data.params.docYear === year) {
+      this.setData({ "params.docYear": '' })
       return
     }
     this.setData({
-      "params.policy_year": year,
+      "params.docYear": year,
     })
   },
 
@@ -160,7 +153,8 @@ Page({
   async determineBtn() {
     this.setData({
       current: 0,
-      listData:[], 
+      listData: [],
+      "params.current": 1
     })
     this.getPolicyList()
   },
@@ -171,24 +165,28 @@ Page({
 
   // 个人，企业切换
   selectPersonal() {
+    if (this.data.params.docCategory === 0) {
+      this.setData({ "params.docCategory": '' })
+      return
+    }
     this.setData({
-      listData:[], 
       "params.docCategory": 0
     })
-    this.getPolicyList()
   },
   selectEnterprise() {
+    if (this.data.params.docCategory === 1) {
+      this.setData({ "params.docCategory": '' })
+      return
+    }
     this.setData({
-      listData:[], 
-      "params.docCategory": 1
+      "params.docCategory": 1,
     })
-    this.getPolicyList()
   },
 
   // 上拉加载下一页数据
   loadNextPage() {
     // 判断当前页是否大于总页数
-    if (this.data.params.pagenum > this.data.total / this.data.params.pagesize) {
+    if (this.data.params.current > this.data.total / this.data.params.size) {
       wx.showToast({
         title: '已经到底了',
         icon: 'none',
@@ -196,14 +194,13 @@ Page({
       })
       return
     }
-    this.data.params.pagenum++
+    this.data.params.current++
     this.getPolicyList()
   },
 
   // 显示弹出层
   showPopup(e) {
     const { id } = e.currentTarget.dataset
-    // console.log(id);
     // 当再次点击当前状态取消弹出层
     if (this.data.current === id) {
       this.setData({
@@ -229,13 +226,17 @@ Page({
    */
   onLoad: function (options) {
     // 获取上一页参数
-    if (options.content) {
+    if (options && options.content) {
       this.setData({
-        selectCategory: true,
         "params.docTitle": options.content
       })
     }
-    if (options.typeId) {
+    if (options && options.itemId) {
+      this.setData({
+        "params.subjectId": options.itemId
+      })
+    }
+    if (options && options.typeId) {
       this.setData({
         "params.docCategory": options.typeId
       })

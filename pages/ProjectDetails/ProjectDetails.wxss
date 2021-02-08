@@ -23,6 +23,15 @@ page {
 .details_header .details_from .details_unit {
   margin-right: 65rpx;
 }
+.details_title {
+  text-align: center!important;
+}
+.details_from {
+  justify-content: center!important;
+}
+.details_from .details_unit {
+  margin: 0!important;
+}
 .project_details-wrap {
   padding: 20rpx;
 }
@@ -53,7 +62,7 @@ page {
   letter-spacing: 70rpx;
 }
 .project_details-wrap .details_footer {
-  padding: 15rpx 0;
+  padding: 15rpx 0 50rpx;
   border-bottom: 1rpx solid var(--baseRgb);
 }
 .project_details-wrap .details_footer .apply_materials {
@@ -68,6 +77,9 @@ page {
   line-height: 39rpx;
   font-size: 30rpx;
   color: var(--titleColor);
+}
+.project_details-wrap .details_footer .apply_materials .apply_title text {
+  word-wrap: break-word;
 }
 .project_details-wrap .apply_btn {
   width: 460rpx;

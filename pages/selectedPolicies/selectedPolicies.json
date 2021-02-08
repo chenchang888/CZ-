@@ -2,5 +2,5 @@
   "usingComponents": {
     "my-search":"../../components/my-search/my-search"
   },
-  "navigationBarTitleText": "精选政策"
+  "navigationBarTitleText": "奖补政策"
 }

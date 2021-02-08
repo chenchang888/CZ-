@@ -1,5 +1,5 @@
 import { request } from "../../request/request"
-import { authorLogin, loginApi } from "../../utils/util"
+import { authorLogin, loginApi, userInfoLogin } from "../../utils/util"
 Page({
 
   /**
@@ -8,88 +8,94 @@ Page({
   data: {
     // 根据是否登录显示页面
     pageShow: false,
+
+    // 根据是否有数据显示组件
+    noDataShow: false,
     // 收藏数据
-    collectData: []
+    collectData: [],
+    // 取消收藏参数
+    cancelParams: {
+      // 基础文章id
+      baseDetailsId: '',
+      // 精选文章id
+      detailsId: '',
+    },
+    // 总页数
+    total: '',
+    params: {
+      current: 1,
+      size: 10,
+    },
   },
 
   // 获取收藏
   async getCollectData() {
     const that = this
-    const open_id = wx.getStorageSync("openId") || [];
     // 请求数据
     const res = await request({
       url: "/personal/getCollect",
-      data: {
-        open_id
-      }
+      data: this.data.params
     })
-    console.log(res);
     const collectData = res.data.data.records
-    that.setData({
-      collectData,
-      pageShow: true
+    const list = this.data.collectData
+    // 拼接数组
+    Array.prototype.push.apply(list, collectData)
+    this.setData({
+      collectData: list,
+      total: res.data.data.pages
     })
   },
   // 删除收藏政策
-  deleteCollection(event) {
-    console.log(event.currentTarget.dataset.id);
-    const deleteId = event.currentTarget.dataset.id
-    const collectData = this.data.collectData
-    const deleteIndex = collectData.findIndex((item) => {
-      item.id === deleteId
-    })
-    if (deleteIndex === -1) {
-      return
+  async deleteCollection(event) {
+    const that = this
+    if (event.currentTarget.dataset.typeid) {
+      that.setData({
+        "cancelParams.detailsId": event.currentTarget.dataset.id
+      })
+    } else {
+      that.setData({
+        "cancelParams.baseDetailsId": event.currentTarget.dataset.id
+      })
     }
-    const openId = wx.getStorageSync("openId") || [];
     wx.showModal({
       title: '提示',
       content: '确定要删除吗',
       async success(res) {
         if (res.confirm) {
-          console.log('用户点击确定')
           const res = await request({
             url: "/subject/Collection",
-            data:{
-              openId
-            }
+            method: "post",
+            data: that.data.cancelParams
           })
+          if (res.data.code === 200) {
+            that.setData({ collectData: [] })
+            that.getCollectData()
+          }
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
   },
-  // 是否登录
-  getAuthSetting() {
+
+  // 判断用户是否登录 
+  async getAuthSetting() {
     const that = this
-    wx.checkSession({
-      success() {
-        that.getCollectData()
-      },
-      fail() {
-        console.log("未登录");
-        wx.showModal({
-          title: "提示",
-          content: "您还未登陆，请前往登录",
-          success(res) {
-            if (res.confirm) {
-              console.log('点击了确定');
-            } else if (res.cancel) {
-              console.log('点击了取消');
-            }
-            wx.navigateBack({
-              delta: 1
-            });
-          },
-        })
-      }
-    })
+    const mes = await authorLogin()
+    const { errMsg } = await userInfoLogin()
+    if (errMsg === "getUserInfo:ok" && mes.errMsg === "checkSession:ok") {
+      that.setData({
+        pageShow: true
+      })
+      this.getCollectData()
+    }
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getAuthSetting()
   },
 
   /**
@@ -103,7 +109,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getAuthSetting()
+
   },
 
   /**
@@ -131,7 +137,18 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.data.total > this.data.params.current) {
+      this.setData({
+        'params.current': this.data.params.current + 1
+      })
+      this.getCollectData()
+    } else {
+      wx.showToast({
+        title: '已全部加载',
+        icon: 'none',
+        duration: 1000
+      })
+    }
   },
 
   /**

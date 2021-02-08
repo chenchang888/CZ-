@@ -1,57 +1,61 @@
-import { authorLogin } from "../../utils/util"
+import { request } from '../../request/request'
+import { authorLogin, userInfoLogin } from "../../utils/util"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    // 总页数
+    total: '',
+    params: {
+      current: 1,
+      size: 8,
+    },
+    // 订阅列表数据
+    subscribe: [],
+    // 无数据是否现实
+    noDataShow: false,
     // 根据是否登录显示页面
     pageShow: false
   },
 
-  // 是否登录
-  getAuthSetting() {
-    // 定义函数设置登录显示  
-    const getAuthShow = () => {
+  // 获取我的订阅数据
+  async getMySubscribe() {
+    const that = this
+    // 请求数据
+    const res = await request({
+      url: "/personal/getProject",
+      data: this.data.params
+    })
+    const subscribeData = res.data.data.records
+    const list = this.data.subscribe
+    if (!subscribeData.length) {
       this.setData({
-        pageShow: true
+        noDataShow: true
       })
     }
-    authorLogin({ getAuthShow })
-    // const that = this
-    // // let setTime = null
-    // wx.getSetting({
-    //   success(res) {
-    //     if (!res.authSetting['scope.userInfo']) {
-    //       showModal()
-    //       // clearTimeout(setTime)
-    //     } else {
-    //       // setTime = setTimeout(() => {
-    //         that.setData({
-    //           pageShow: true
-    //         })
-    //       // }, 1);
-    //     }
-    //   }
-    // })
+    // 拼接数组
+    Array.prototype.push.apply(list, subscribeData)
+    this.setData({
+      subscribe: list,
+      total: res.data.data.pages
+    })
   },
 
-  // // 文件
-  // wenjain(){
-  //   wx.downloadFile({
-  //     // 示例 url，并非真实存在
-  //     url: 'http://example.com/somefile.pdf',
-  //     success: function (res) {
-  //       const filePath = res.tempFilePath
-  //       wx.openDocument({
-  //         filePath: filePath,
-  //         success: function (res) {
-  //           console.log('打开文档成功')
-  //         }
-  //       })
-  //     }
-  //   })
-  // },
+  // 判断用户是否登录 
+  async getAuthSetting() {
+    const that = this
+    const mes = await authorLogin()
+    const { errMsg } = await userInfoLogin()
+    if (errMsg === "getUserInfo:ok" && mes.errMsg === "checkSession:ok") {
+      that.setData({
+        pageShow: true
+      })
+      this.getMySubscribe()
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

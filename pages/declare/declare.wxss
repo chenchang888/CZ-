@@ -1,6 +1,8 @@
 page {
-  height: 100%;
-  background-color: #f3f3f9;
+  background-color: #f3f7fa;
+}
+page {
+  background-color: #f3f7fa;
 }
 .pageshow {
   display: none;
@@ -10,6 +12,7 @@ page {
 }
 .collection_wrap .collection_item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 9rpx;
   border-radius: 10rpx;
@@ -22,22 +25,29 @@ page {
 .collection_wrap .collection_item .collection_info .collection_date {
   line-height: 30rpx;
   font-size: 24rpx;
-  color: #666;
+  color: var(--fontColor);
 }
 .collection_wrap .collection_item .collection_info .collection_title {
   line-height: 37rpx;
   margin-top: 17rpx;
   font-size: 26rpx;
-  color: #333;
+  color: var(--titleColor);
 }
 .collection_wrap .collection_item .collection_img image {
   width: 28rpx;
   height: 30rpx;
   margin: 0 33rpx 0 20rpx;
 }
+.collection_wrap {
+  text-align: center;
+}
 .collection_title {
   margin-bottom: 60rpx;
 }
 .pageshow {
   display: none;
+}
+.noData {
+  font-size: 30rpx;
+  color: #555;
 }

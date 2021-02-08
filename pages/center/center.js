@@ -1,5 +1,5 @@
 import { request } from "../../request/request";
-import { loginApi } from "../../utils/util"
+import { authorLogin, userInfoLogin } from "../../utils/util"
 Page({
 
   /**
@@ -32,68 +32,40 @@ Page({
             }
           })
           console.log(result);
-          if (result.data.code === 200) {
-            const token = result.data.msg
-            wx.setStorageSync('token', token)
-            wx.showToast({
-              title: '登录成功！',
-              icon: 'success',
-              duration: 2000
-            })
-            that.setData({
-              userInfo,
-              show: true
-            })
-          }
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
-  },
-  // 检验用户信息登录
-  getInfo() {
-    const that = this
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: function (res) {
-              // console.log(res);
-              const { userInfo } = res
-              that.setData({
-                userInfo,
-                show: true
-              })
-            }
+          const token = result.data.msg
+          // console.log(token);
+          wx.setStorageSync('token', token)
+          wx.showToast({
+            title: '登录成功！',
+            icon: 'success',
+            duration: 2000
+          })
+          that.setData({
+            userInfo,
+            show: true
           })
         }
       }
     })
   },
-  // 检测是否openId登录
-  getOpenId() {
+  // 检验用户登录
+  async getAuthSetting() {
     const that = this
-    wx.checkSession({
-      success() {
-        that.getInfo();
-        console.log('登录了');
-      },
-      fail() {
-        // session_key 已经失效，需要重新执行登录流程
-        // wx.showToast({
-        //   title: '请登陆',
-        //   icon: 'none',
-        //   duration: 2000
-        // })
-      }
-    })
+    const mes = await authorLogin()
+    const { errMsg, userInfo } = await userInfoLogin()
+    if (errMsg === "getUserInfo:ok" && mes.errMsg === "checkSession:ok") {
+      that.setData({
+        userInfo,
+        show: true
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getAuthSetting()
     // 分享
     wx.showShareMenu({
       withShareTicket: true,
@@ -112,7 +84,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getOpenId()
+
   },
 
   /**

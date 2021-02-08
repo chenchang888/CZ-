@@ -207,7 +207,7 @@
       .popup_content {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-around;
         padding-top: 20rpx;
         box-sizing: border-box;
 
@@ -237,6 +237,25 @@
           height: 0;
           border: none;
           padding: 0;
+        }
+      }
+
+      .policy_type-choose {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 50rpx;
+
+        .personal_policy,
+        .com_policy {
+          padding: 15rpx 30rpx;
+          border-radius: 10rpx;
+          background-color: #f6f6f6;
+          color: #666;
+        }
+
+        .active_themes {
+          background-color: var(--themeColor);
+          color: #fff;
         }
       }
 
