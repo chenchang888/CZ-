@@ -7,9 +7,9 @@ export const request = (params) => {
     // const baseURL = "https://chuz.ahzwfw.gov.cn/api"
     const token = wx.getStorageSync('token') || ''
     return new Promise((resolve, reject) => {
-        wx.showLoading({
-            title: '加载中',
-        })
+        // wx.showLoading({
+        //     title: '加载中',
+        // })
         wx.request({
             ...params,
             url: baseURL + params.url,
@@ -18,8 +18,9 @@ export const request = (params) => {
             },
             success(res) {
                 if (res.data.code === 200) {
+                    console.log(res);
                     resolve(res);
-                    wx.hideLoading()
+                    // wx.hideLoading()
                     return
                 }
                 wx.showToast({

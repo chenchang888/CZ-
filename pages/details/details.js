@@ -1,4 +1,4 @@
-import { authorLogin } from "../../utils/util"
+import { authorLogin, userInfoLogin } from "../../utils/util"
 const { request } = require("../../request/request")
 const fileUrl = 'http://www.chuzhou.gov.cn/'
 Page({
@@ -39,6 +39,9 @@ Page({
 
   // 获取政策详情
   async getDetails() {
+    wx.showLoading({
+      title: '加载中',
+    })
     const res = await request({
       url: "/subject/ArticleDetail",
       data: {
@@ -46,6 +49,9 @@ Page({
         datArticleId: this.data.baseDetailsId
       }
     });
+    if (res.data.code === 200) {
+      wx.hideLoading()
+    }
     let docContent = res.data.data.docContent
     // 处理富文本图片表格溢出问题，添加img前缀
     docContent = docContent.replace(/\s(src=")/g, "$1http://www.chuzhou.gov.cn")
@@ -105,6 +111,8 @@ Page({
   async likesHandle() {
     // 判断用户是否登录
     const { errMsg } = await authorLogin()
+    const res = await userInfoLogin()
+    console.log(res);
     if (errMsg === "checkSession:ok") {
       const res = await request({
         url: "/subject/praise",

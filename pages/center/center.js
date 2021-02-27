@@ -14,7 +14,6 @@ Page({
   // 登录
   getUserInfo(e) {
     const that = this
-    console.log(e);
     const { userInfo } = e.detail
     if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
       return
@@ -22,7 +21,6 @@ Page({
     wx.login({
       async success(res) {
         if (res.code) {
-          console.log(res.code);
           //发起网络请求
           const result = await request({
             url: '/personal/wxLogin',
@@ -31,7 +29,6 @@ Page({
               code: res.code
             }
           })
-          console.log(result);
           const token = result.data.msg
           // console.log(token);
           wx.setStorageSync('token', token)

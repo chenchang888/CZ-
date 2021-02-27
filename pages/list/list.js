@@ -1,4 +1,6 @@
-import { request } from '../../request/request';
+import {
+  request
+} from '../../request/request';
 Page({
 
   /**
@@ -20,8 +22,7 @@ Page({
     // 列表点击状态,显示弹出层
     current: 0,
     // 列表选择
-    selectList: [
-      {
+    selectList: [{
         id: 1,
         title: '政策主题'
       },
@@ -57,7 +58,7 @@ Page({
 
     // 请求参数
     params: {
-      docCategory: '',//0为个人，1为惠企
+      docCategory: '', //0为个人，1为惠企
       docTitle: '',
       subjectId: '',
       docGrade: '',
@@ -69,18 +70,26 @@ Page({
 
   // 请求列表数据
   async getPolicyList() {
+    wx.showLoading({
+      title: '加载中',
+    })
     const res = await request({
       url: "/wx/getArticleData",
       data: this.data.params
     })
-    // 合并请求页数据
-    const resList = res.data.data.records
-    const listData = this.data.listData
-    Array.prototype.push.apply(listData, resList)
-    this.setData({
-      listData,
-      total: res.data.data.total
-    })
+    console.log(res);
+    if (res.data.code === 200) {
+      wx.hideLoading()
+      // 合并请求页数据
+      const resList = res.data.data.records
+      const listData = this.data.listData
+      Array.prototype.push.apply(listData, resList)
+      this.setData({
+        listData,
+        total: res.data.data.total
+      })
+    }
+
   },
 
   // 请求政策条件选择项
@@ -119,9 +128,13 @@ Page({
   },
   // 选择政策主题类型
   chooseTheme(e) {
-    const { id } = e.currentTarget.dataset;
+    const {
+      id
+    } = e.currentTarget.dataset;
     if (this.data.params.subjectId === id) {
-      this.setData({ "params.subjectId": '' })
+      this.setData({
+        "params.subjectId": ''
+      })
       return
     }
     this.setData({
@@ -130,18 +143,28 @@ Page({
   },
   // 选择政策等级
   chooseGrade(e) {
-    const { grade } = e.currentTarget.dataset;
+    const {
+      grade
+    } = e.currentTarget.dataset;
     if (this.data.params.docGrade === grade) {
-      this.setData({ "params.docGrade": '' })
+      this.setData({
+        "params.docGrade": ''
+      })
       return
     }
-    this.setData({ "params.docGrade": grade })
+    this.setData({
+      "params.docGrade": grade
+    })
   },
   // 选择政策年份
   chooseYear(e) {
-    const { year } = e.currentTarget.dataset;
+    const {
+      year
+    } = e.currentTarget.dataset;
     if (this.data.params.docYear === year) {
-      this.setData({ "params.docYear": '' })
+      this.setData({
+        "params.docYear": ''
+      })
       return
     }
     this.setData({
@@ -160,13 +183,17 @@ Page({
   },
   //  取消
   cancelBtn() {
-    this.setData({ current: 0 })
+    this.setData({
+      current: 0
+    })
   },
 
   // 个人，企业切换
   selectPersonal() {
     if (this.data.params.docCategory === 0) {
-      this.setData({ "params.docCategory": '' })
+      this.setData({
+        "params.docCategory": ''
+      })
       return
     }
     this.setData({
@@ -175,7 +202,9 @@ Page({
   },
   selectEnterprise() {
     if (this.data.params.docCategory === 1) {
-      this.setData({ "params.docCategory": '' })
+      this.setData({
+        "params.docCategory": ''
+      })
       return
     }
     this.setData({
@@ -200,7 +229,9 @@ Page({
 
   // 显示弹出层
   showPopup(e) {
-    const { id } = e.currentTarget.dataset
+    const {
+      id
+    } = e.currentTarget.dataset
     // 当再次点击当前状态取消弹出层
     if (this.data.current === id) {
       this.setData({
@@ -208,16 +239,16 @@ Page({
       })
       return
     }
-    this.setData(
-      {
-        current: id
-      }
-    );
+    this.setData({
+      current: id
+    });
   },
 
   // 关闭弹出层
   closePopur(e) {
-    this.setData({ current: 0 });
+    this.setData({
+      current: 0
+    });
   },
 
 
@@ -251,8 +282,8 @@ Page({
   },
 
   /**
-    * 页面上拉触底事件的处理函数
-    */
+   * 页面上拉触底事件的处理函数
+   */
   onReachBottom: function (e) {
     this.loadNextPage()
   },
@@ -267,8 +298,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏

@@ -5,10 +5,10 @@
                 <view class="collection_date">{{item.docPubDate}}</view>
                 <view class="collection_title">{{item.docTitle}}</view>
             </navigator>
-            <view class="collection_img" bindtap="deleteCollection" data-typeId="{{item.datType}}"
+            <!-- <view class="collection_img" bindtap="deleteCollection" data-typeId="{{item.datType}}"
                 data-id="{{item.id}}">
                 <image src="../../icon/delete.png" />
-            </view>
+            </view> -->
         </view>
     </view>
     <view class="noData" wx:else>暂无数据</view>

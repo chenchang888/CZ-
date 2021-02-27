@@ -40,10 +40,16 @@ Page({
 
   // 请求项目列表
   async getProject() {
+    wx.showLoading({
+      title: '加载中',
+    })
     const res = await request({
       url: "/wx/getPolicyData",
       data: this.data.params
     })
+    if(res.data.code===200){
+      wx.hideLoading()
+    }
     // 合并请求页数据
     const resList = res.data.data.records
     const applyList = this.data.applyList

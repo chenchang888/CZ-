@@ -1,5 +1,11 @@
-import { request } from "../../request/request"
-import { authorLogin, loginApi, userInfoLogin } from "../../utils/util"
+import {
+  request
+} from "../../request/request"
+import {
+  authorLogin,
+  loginApi,
+  userInfoLogin
+} from "../../utils/util"
 Page({
 
   /**
@@ -31,11 +37,17 @@ Page({
   // 获取收藏
   async getCollectData() {
     const that = this
+    wx.showLoading({
+      title: '加载中',
+    })
     // 请求数据
     const res = await request({
       url: "/personal/getCollect",
       data: this.data.params
     })
+    if (res.data.code === 200) {
+      wx.hideLoading()
+    }
     const collectData = res.data.data.records
     const list = this.data.collectData
     // 拼接数组
@@ -48,15 +60,17 @@ Page({
   // 删除收藏政策
   async deleteCollection(event) {
     const that = this
-    if (event.currentTarget.dataset.typeid) {
-      that.setData({
-        "cancelParams.detailsId": event.currentTarget.dataset.id
-      })
-    } else {
-      that.setData({
-        "cancelParams.baseDetailsId": event.currentTarget.dataset.id
-      })
-    }
+    console.log(event);
+    // if (event.currentTarget.dataset.typeid) {
+    that.setData({
+      "cancelParams.baseDetailsId": event.currentTarget.dataset.id
+    })
+    // }
+    //  else {
+    //   that.setData({
+    //     "cancelParams.baseDetailsId": event.currentTarget.dataset.id
+    //   })
+    // }
     wx.showModal({
       title: '提示',
       content: '确定要删除吗',
@@ -68,7 +82,9 @@ Page({
             data: that.data.cancelParams
           })
           if (res.data.code === 200) {
-            that.setData({ collectData: [] })
+            that.setData({
+              collectData: []
+            })
             that.getCollectData()
           }
         } else if (res.cancel) {
@@ -82,7 +98,9 @@ Page({
   async getAuthSetting() {
     const that = this
     const mes = await authorLogin()
-    const { errMsg } = await userInfoLogin()
+    const {
+      errMsg
+    } = await userInfoLogin()
     if (errMsg === "getUserInfo:ok" && mes.errMsg === "checkSession:ok") {
       that.setData({
         pageShow: true
