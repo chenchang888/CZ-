@@ -55,7 +55,7 @@
         <view class="apply_materials">
             <view class="apply_name">网上申报入口：</view>
             <view class="apply_title">
-                <text>{{content.platformUrl}}</text>
+                <text user-select>{{content.platformUrl}}</text>
             </view>
         </view> 
     </view>

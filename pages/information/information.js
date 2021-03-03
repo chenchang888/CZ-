@@ -38,6 +38,10 @@ Page({
 
   // 检验登录状态
   async getAuthSetting() {
+    
+    wx.showLoading({
+      title: '加载中',
+    })
     const that = this
     const mes = await authorLogin()
     const { errMsg, userInfo } = await userInfoLogin()
@@ -55,6 +59,9 @@ Page({
     const res = await request({
       url: "/personal/getUser"
     })
+    if (res.data.code === 200) {
+      wx.hideLoading()
+    }
     if (res.data.data.name) {
       this.setData({
         "personInfo.name": res.data.data.name
@@ -85,7 +92,12 @@ Page({
     this.setData({ addressInput: false })
   },
   // 手机输入框失去焦点
-  losePhoneFocus(e) {
+  losePhoneFocus() {
+    this.setData({
+      phoneInput: true
+    })
+  },
+  inputPhoneFocus(e) {
     const { value } = e.detail
     if (value.trim() === '') {
       this.setData({
@@ -97,12 +109,16 @@ Page({
       })
     }
     this.setData({
-      phoneInput: true,
       "params.phone": value
     })
   },
   // 姓名输入框失去焦点
-  loseNameFocus(e) {
+  loseNameFocus() {
+    this.setData({
+      nameInput: true
+    })
+  },
+  inputNameFocus(e) {
     const { value } = e.detail
     if (value.trim() === '') {
       this.setData({
@@ -114,12 +130,16 @@ Page({
       })
     }
     this.setData({
-      nameInput: true,
       "params.name": value
     })
   },
   // 邮箱地址输入框失去焦点
-  loseAddressFocus(e) {
+  loseAddressFocus() {
+    this.setData({
+      addressInput: true
+    })
+  },
+  inputAddressFocus(e) {
     const { value } = e.detail
     if (value.trim() === '') {
       this.setData({
@@ -131,22 +151,22 @@ Page({
       })
     }
     this.setData({
-      addressInput: true,
       "params.email": value
     })
   },
   // 保存
   async preservation() {
-    console.log(this.data.personInfo);
     const res = await request({
       url: "/personal/saveUser",
       data: this.data.personInfo
     })
-    wx.showToast({
-      title: '保存成功',
-      icon: 'success',
-      duration: 2000
-    })
+    if (res.data.code === 200) {
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }
   },
 
   /**

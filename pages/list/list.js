@@ -101,6 +101,7 @@ Page({
         num: 0
       }
     })
+    console.log(res);
     this.setData({
       policyGrade: res.data.data.POLICY_LEVER,
       policyYear: res.data.data.POL_YEAR,
